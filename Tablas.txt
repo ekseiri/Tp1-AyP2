@@ -1,0 +1,13 @@
+P: 2, 10
+LyE: 2, 12
+LL: 1, 5
+S: 3, 5
+B: 5, 5
+E: 10, 15
+
+Lunes: 120
+Martes: 100
+Miércoles: 100
+Jueves: 90
+Viernes: 120
+Sábados: 150
