@@ -21,7 +21,7 @@ public class io {
 		StringTokenizer tokenizer = null;
 		int[] tokens = new int[2];
 		
-		busqueda=busqueda+"(.*)";
+		busqueda="(^)"+busqueda+"(.*)";
 	
 		try {
 			bReader = new BufferedReader(new FileReader("Tablas.txt"));
