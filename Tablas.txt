@@ -7,7 +7,7 @@ E: 10, 15
 
 Lunes: 120
 Martes: 100
-Miércoles: 100
+Miercoles: 100
 Jueves: 90
 Viernes: 120
-Sábados: 150
+Sabados: 150
