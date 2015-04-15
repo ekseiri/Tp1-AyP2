@@ -11,7 +11,7 @@ public class io {
 	 * Devuelve Los valores asociados al proceso/dia indicado
 	 * 
 	 * @param busqueda(String) El dato a buscar correspondiente a la primera 
-	 * 							 columna de las tablas
+	 * 						   columna de las tablas
 	 * @return Devuelve un Array de Integers de 2 posiciones conteniendo los 
 	 * 		   valores correspondientes a la columna 2 y 3 para el valor buscado
 	 */
@@ -49,13 +49,13 @@ public class io {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		try {
-			bReader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} finally {
+			try {
+				bReader.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return tokens;
