@@ -11,6 +11,7 @@ public class Auto
 	{
 		this.ticket = ticket;
 	}
+
 	Ticket checkTicket()
 	{
 		return this.ticket;
