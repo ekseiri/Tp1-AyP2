@@ -1,5 +1,4 @@
-
-public enum TipoDeServicio {
+public enum TipoDeServicio
+{
 	ECONOMICO, COMPLETO, PREMIUM
-	
 }

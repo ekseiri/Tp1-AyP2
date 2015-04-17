@@ -1,23 +1,26 @@
 public class Ticket 
-//revisar, la idea era que mandandole el TipoDeServicio se referencie al servicio creado en el main
+//desde el main se lee el tipo de servicio y se aplica a la maquina
 {
-	private Servicio servicio;
-	int horaDeLlegada;
-	// encerado
+	private TipoDeServicio servicio;
+	private int horaDeLlegada;
+	private boolean encera;
 
-	public Ticket(TipoDeServicio servicioElegido)
+	public Ticket(int horaDeLlegada, TipoDeServicio servicioElegido, boolean encerado)
 	{
-		if(servicioElegido==TipoDeServicio.ECONOMICO)
-		{
-			this.servicio = economico;
-		}
-		else if(servicioElegido==TipoDeServicio.COMPLETO)
-		{
-			this.servicio = completo;
-		}
-		else if(servicioElegido==TipoDeServicio.PREMIUM)
-		{
-			this.servicio = premium;
-		}
+		this.horaDeLlegada=horaDeLlegada;
+		this.servicio=servicioElegido;
+		this.encera = encerado;
+	}
+	int getTiempo()
+	{
+		return this.horaDeLlegada;
+	}
+	TipoDeServicio getTipoServicio()
+	{
+		return this.servicio;
+	}
+	boolean encera()
+	{
+		return this.encera;
 	}
 }

@@ -3,8 +3,9 @@ import utils.ColaException;
 
 public class Maquina
 {
-	Cola cola;
-	Auto auto;
+	private Cola cola;
+	private Auto auto;
+	private Servicio servicio;
 
 	public Maquina()
 	{
