@@ -3,10 +3,10 @@ public class DeterminadorDeServicio {
 	
 	/**
 	 * Determina el tipo de servicio que va a requerir el auto de acuerdo al
-	 * porcentaje de ocurrencia de cada uno.<br>
-	 * 50% Economico<br>
-	 * 30% Completo<br>
-	 * 20% Premium<br>
+	 * porcentaje de ocurrencia de cada uno.
+	 * 50% Economico
+	 * 30% Completo
+	 * 20% Premium
 	 * 
 	 * @return TipoDeServicio 
 	 */
@@ -28,7 +28,7 @@ public class DeterminadorDeServicio {
 	 * 
 	 * @return true si encera
 	 */
-	public static boolean getEncerrado(){
+	public static boolean getEncerado(){
 		return (Math.random() >= 0.5);
 	}
 	
