@@ -28,7 +28,7 @@ public class DeterminadorDeServicio {
 	 * 
 	 * @return true si encera
 	 */
-	public static boolean getEncerrado(){
+	public static boolean getEncerado(){
 		return (Math.random() >= 0.5);
 	}
 	
