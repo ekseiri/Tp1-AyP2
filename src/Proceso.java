@@ -9,12 +9,12 @@ public class Proceso
 		this.costo = costo;
 	}
 
-	int getTiempo()
+	public int getTiempo()
 	{
 		return this.tiempo;
 	}
 
-	int getCosto()
+	public int getCosto()
 	{
 		return this.costo;
 	}

@@ -1,18 +1,13 @@
 public class Auto
 {
-	Ticket ticket;
+	private Ticket ticket;
 
-	public Auto()
-	{
-
-	}
-
-	void asignarTicket(Ticket ticket)
+	public Auto(Ticket ticket)
 	{
 		this.ticket = ticket;
 	}
 
-	Ticket checkTicket()
+	public Ticket getTicket()
 	{
 		return this.ticket;
 	}

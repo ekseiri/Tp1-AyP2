@@ -11,29 +11,39 @@ public class Maquina
 	{
 		cola = new Cola();
 	}
-
-	boolean estaVacia()
+	
+	public boolean estaVacia()
 	{
 		return auto == null;
 	}
 
-	void nextAuto()
+	public void nextAuto()
 	{
+		
+		//no se si es una negrada esto, mepa que si
 		try
 		{
-			this.auto= (Auto) this.cola.desencolar(); //no se si es una negrada esto, mepa que si
+			this.auto = (Auto) this.cola.desencolar();
 		}
 		catch (ColaException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+			
 	}
-	Auto sacarAuto()
+	
+	public Auto sacarAuto()
 	{
-		Auto aux=new Auto(); //revisar si no es otra villereada
+		Auto aux=this.auto; //revisar si no es otra villereada
 		this.auto=null;
+		
 		return aux;
+	}
+	
+	public void avanzarCola(Maquina proximaMaquina)
+	{
+		
 	}
 
 }

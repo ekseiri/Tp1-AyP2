@@ -5,22 +5,16 @@ public class Ticket
 	private int horaDeLlegada;
 	private boolean encera;
 
-	public Ticket(int horaDeLlegada, TipoDeServicio servicioElegido, boolean encerado)
+	public Ticket(int horaDeLlegada)
 	{
 		this.horaDeLlegada=horaDeLlegada;
-		this.servicio=servicioElegido;
-		this.encera = encerado;
+		this.servicio=DeterminadorDeServicio.getServicio();
+		this.encera = DeterminadorDeServicio.getEncerado();
 	}
-	int getTiempo()
+	
+	public int getTiempo()
 	{
 		return this.horaDeLlegada;
 	}
-	TipoDeServicio getTipoServicio()
-	{
-		return this.servicio;
-	}
-	boolean encera()
-	{
-		return this.encera;
-	}
+
 }
