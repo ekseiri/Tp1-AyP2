@@ -15,21 +15,13 @@ public class SalidaDeMaquina extends Evento
 	{
 		super(auto);
 		
-		this.maquina= maquina;
+		this.maquina = maquina;
 		
-		// Much nigga
-		// Si se les ocurre una forma mas elegante de hacer esto mejor
-		// if ((maquina.getClass().getSimpleName() == "MaquinaEncerado") ||
-		// (!(this.getAuto().getTicket().getEncerado()) &&
-		// (maquina.getClass().getSimpleName() == "MaquinaEncerado")))
-		// {
-		// finDelServicio = !finDelServicio;
-		// }
 		if (maquina.getClass() == MaquinaEncerado.class //se puede manejar desde el main esto
 				|| !(this.getAuto().getTicket().getEncerado())
 				&& maquina.getClass() == MaquinaEncerado.class)
 		{
-
+			finDelServicio = !finDelServicio;
 		}
 
 	}
