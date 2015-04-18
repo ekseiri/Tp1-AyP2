@@ -14,7 +14,9 @@ public abstract class Evento
     {
         this.auto = auto;
     }
-
+    
+    public abstract int getHorario();
+    
     public Auto getAuto()
     {
         return this.auto;
