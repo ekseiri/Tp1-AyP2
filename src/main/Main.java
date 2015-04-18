@@ -1,25 +1,27 @@
 package main;
+
 import utils.io;
 
 public class Main
 {
 	public static Servicio economico;
 	public static Servicio completo;
-	public static Servicio premium;	
+	public static Servicio premium;
 	public static Timeline timeline;
-	
+
 	public static void main(String[] args)
-	{	
+	{
 		generarServicios();
-	
+		imprimirResultados();
+
 	}
-		
+
 	static void generarServicios()
 	{
 		int tiempo;
 		int costo;
 		int[] aux;
-		
+
 		aux = io.buscarEnArchivo("P");
 		Proceso prelavado = new Proceso(aux[0], aux[1]);
 		aux = io.buscarEnArchivo("LyE");
@@ -44,5 +46,10 @@ public class Main
 		costo += brillo.getCosto();
 		premium = new Servicio(tiempo, costo);
 
+	}
+
+	static void imprimirResultados()
+	{
+		System.out.println();
 	}
 }
