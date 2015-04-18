@@ -1,3 +1,4 @@
+package main;
 public class Servicio // si, es igual a proceso, estoy seguro que algo falta
 {
 	private int tiempo = 0;

@@ -1,18 +1,19 @@
+package main;
 import utils.io;
 
 public class Main
 {
 	public static Servicio economico;
 	public static Servicio completo;
-	public static Servicio premium;
-	
+	public static Servicio premium;	
+	public static Timeline timeline;
 	
 	public static void main(String[] args)
 	{	
 		generarServicios();
 	
 	}
-
+		
 	static void generarServicios()
 	{
 		int tiempo;

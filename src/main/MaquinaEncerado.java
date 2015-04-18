@@ -1,3 +1,4 @@
+package main;
 public class MaquinaEncerado extends Maquina
 {
 

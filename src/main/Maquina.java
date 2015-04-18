@@ -1,7 +1,9 @@
+package main;
 import utils.Cola;
 import utils.ColaException;
 
-public class Maquina
+//Abstracta? Mepa que si
+public abstract class Maquina
 {
 	private Cola cola;
 	private Auto auto;

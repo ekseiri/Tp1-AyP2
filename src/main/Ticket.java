@@ -1,3 +1,5 @@
+package main;
+
 public class Ticket 
 //desde el main se lee el tipo de servicio y se aplica a la maquina
 {
@@ -12,9 +14,14 @@ public class Ticket
 		this.encera = DeterminadorDeServicio.getEncerado();
 	}
 	
-	public int getTiempo()
+	public int getHorario()
 	{
 		return this.horaDeLlegada;
+	}
+	
+	public boolean getEncerado()
+	{
+		return this.encera;
 	}
 
 }
