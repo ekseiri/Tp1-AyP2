@@ -20,6 +20,11 @@ public class Main
 	{
 		generarServicios();
 		proceso("Lunes");
+		proceso("Martes");
+		proceso("Miercoles");
+		proceso("Jueves");
+		proceso("Viernes");
+		proceso("Sabado");
 		imprimirResultados();
 
 	}
