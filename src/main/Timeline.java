@@ -21,10 +21,11 @@ public class Timeline
 	{
 		return horarioActual;
 	}
+
 	public Evento nextEvento()
 	{
-		Evento aux=(Evento) timeline.poll();
-		this.horarioActual=aux.getHorario();
+		Evento aux = (Evento) timeline.poll();
+		this.horarioActual = aux.getHorario();
 		return aux;
 	}
 	public boolean newEvent(Evento evento)//puse el boolean porque .add devuelve eso, pero puede obviarse

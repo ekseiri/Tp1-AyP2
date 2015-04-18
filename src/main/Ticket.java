@@ -4,17 +4,17 @@ public class Ticket
 //desde el main se lee el tipo de servicio y se aplica a la maquina
 {
 	private TipoDeServicio servicio;
-	private int horaDeLlegada;
+	private double horaDeLlegada;
 	private boolean encera;
 
-	public Ticket(int horaDeLlegada)
+	public Ticket(double horaDeLlegada)
 	{
 		this.horaDeLlegada=horaDeLlegada;
 		this.servicio=DeterminadorDeServicio.getServicio();
 		this.encera = DeterminadorDeServicio.getEncerado();
 	}
 	
-	public int getHorario()
+	public double getHorario()
 	{
 		return this.horaDeLlegada;
 	}
