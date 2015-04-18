@@ -4,7 +4,7 @@ import main.*;
 
 public class SalidaDeCola extends Evento
 {
-	private int horario;
+	private double horario;
 		
 	public SalidaDeCola(Auto auto, Maquina maquina)
 	{
@@ -15,12 +15,12 @@ public class SalidaDeCola extends Evento
 		}
 	}
 
-    public int getHorario()
+    public double getHorario()
     {
         return this.horario;
     }
 
-    public int getTiempoEnCola()
+    public double getTiempoEnCola()
     {
     	// Tiempo en Cola = (Horario Actual) - (Horario De Entrada)
     	return Main.timeline.getHorarioActual() - this.horario;

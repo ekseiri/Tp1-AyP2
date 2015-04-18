@@ -15,7 +15,7 @@ public abstract class Evento
         this.auto = auto;
     }
     
-    public abstract int getHorario();
+    public abstract double getHorario();
     
     public Auto getAuto()
     {

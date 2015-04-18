@@ -8,7 +8,7 @@ import main.MaquinaLavado;
 
 public class SalidaDeMaquina extends Evento
 {
-	private int horario;
+	private double horario;
 	private boolean finDelServicio = false;
 	
 	public SalidaDeMaquina(Auto auto, Maquina maquina)
@@ -26,7 +26,7 @@ public class SalidaDeMaquina extends Evento
 			
 	}
 	
-	public int getHorario()
+	public double getHorario()
 	{
 		return this.getAuto().getTicket().getHorario();
 	}

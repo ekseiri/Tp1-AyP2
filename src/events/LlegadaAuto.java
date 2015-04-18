@@ -16,7 +16,7 @@ public class LlegadaAuto extends Evento
 	/**
 	 * Devuelve el horario de llegada del auto
 	 */
-	public int getHorario()
+	public double getHorario()
 	{
 		return this.getAuto().getTicket().getHorario();
 	}

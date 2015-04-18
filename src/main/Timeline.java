@@ -8,7 +8,7 @@ import utils.Comparador;
 public class Timeline
 {
 	private PriorityQueue<Evento> timeline;
-	private int horarioActual;
+	private double horarioActual;
 	private Comparador comparador;
 
 	public Timeline()
@@ -17,7 +17,7 @@ public class Timeline
 		this.timeline = new PriorityQueue<Evento>(comparador);
 	}
 
-	public int getHorarioActual()
+	public double getHorarioActual()
 	{
 		return horarioActual;
 	}

@@ -11,7 +11,7 @@ public class Main
 	public static Servicio completo;
 	public static Servicio premium;
 	public static Timeline timeline;
-	public static final int horarioAtencion = 720;
+	public static final double horarioAtencion = 720;
 
 	public static void main(String[] args)
 	{
@@ -59,13 +59,13 @@ public class Main
 		int clientesPromedio;
 		MaquinaLavado mLavado = new MaquinaLavado();
 		MaquinaEncerado mEncerado = new MaquinaEncerado();
-		PoissonSimulator poisson = null; //me obligo eclipse a nullear
+		PoissonSimulator poisson = null; // me obligo eclipse a nullear
 		Timeline timeline = new Timeline();
 		aux = io.buscarEnArchivo(dia);
 		clientesPromedio = aux[0];
 		try
 		{
-			poisson = new PoissonSimulator(clientesPromedio, horarioAtencion);
+			poisson = new PoissonSimulator(clientesPromedio, (int) horarioAtencion);
 		}
 		catch (PoissonSimulatorException e)
 		{
@@ -76,7 +76,7 @@ public class Main
 		do
 		{
 			timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
-			
+
 		}
 		while (timeline.getHorarioActual() < horarioAtencion);
 
