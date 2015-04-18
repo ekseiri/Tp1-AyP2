@@ -2,7 +2,7 @@ package main;
 import utils.Cola;
 import utils.ColaException;
 
-//Abstracta? Mepa que si
+//Abstracta? Mepa que si => a full
 public abstract class Maquina
 {
 	private Cola cola;
@@ -28,7 +28,7 @@ public abstract class Maquina
     /**
      * Saca el primer auto de la cola y lo ingresa a la maquina
      */
-	public void nextAuto()
+	public void nextAuto() throws NoHayAutosException
 	{
 		
 		//no se si es una negrada esto, mepa que si
@@ -39,6 +39,7 @@ public abstract class Maquina
         catch (ColaException e)
         {
             this.auto = null;
+            throw new NoHayAutosException("La cola de la maquina esta vacia");
         } 
 	}
 	

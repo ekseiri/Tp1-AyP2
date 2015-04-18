@@ -1,6 +1,7 @@
 package main;
 
 import events.Evento;
+import events.FinDeServicio;
 import events.LlegadaAuto;
 import events.SalidaDeMaquina;
 import utils.PoissonSimulator;
@@ -88,23 +89,44 @@ public class Main
 				mLavado.ingresarAuto(evento.getAuto());
 			}
 			else
-				if (evento.getClass() == SalidaDeMaquina.class)
+				if (evento.getClass() == SalidaDeMaquina.class)// realmente salida de maquina tiene significado en la
+																// maquina de lavado, porque salir de encerado es si o
+																// si fin de servicio
 				{
-					salidaDeMaquina = (SalidaDeMaquina) evento; // * esto no se
-																// si es asi
+					salidaDeMaquina = (SalidaDeMaquina) evento; // esto no se si es asi
 					auto = salidaDeMaquina.getMaquina().sacarAuto();
 					if (auto.getTicket().getEncerado())
 					{
 						mEncerado.ingresarAuto(auto);
 					}
+					else
+					{
+						timeline.newEvent(new FinDeServicio(auto));
+					}
 				}
 			if (mLavado.estaVacia())
 			{
-				mLavado.nextAuto();
+				try
+				{
+					mLavado.nextAuto();
+				}
+				catch (NoHayAutosException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if (mEncerado.estaVacia())
 			{
-				mEncerado.nextAuto();
+				try
+				{
+					mEncerado.nextAuto();
+				}
+				catch (NoHayAutosException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 		}
