@@ -86,7 +86,15 @@ public class Main
 			e.printStackTrace();
 		}
 
-		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
+		timeline.newEvent(
+				new LlegadaAuto(
+						new Auto(
+								new Ticket(
+										poisson.proximoArribo()
+								)
+						)
+				)
+		);
 
 		do
 		{
@@ -94,7 +102,15 @@ public class Main
 			if (evento.getClass() == LlegadaAuto.class)
 			{
 				mLavado.ingresarAuto(evento.getAuto());
-				timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
+				timeline.newEvent(
+						new LlegadaAuto(
+								new Auto(
+										new Ticket(
+												poisson.proximoArribo()
+										)
+								)
+						)
+				);
 			}
 			else
 				if (evento.getClass() == SalidaDeCola.class)
@@ -102,11 +118,11 @@ public class Main
 
 				}
 				else
-					if (evento.getClass() == SalidaDeMaquina.class)// realmente salida de maquina tiene significado en
+					if (evento.getClass() == SalidaDeMaquina.class){// realmente salida de maquina tiene significado en
 																	// la
 																	// maquina de lavado, porque salir de encerado es si
 																	// o si fin de servicio
-					{
+						
 						salidaDeMaquina = (SalidaDeMaquina) evento; // esto no se si es asi
 						auto = salidaDeMaquina.getMaquina().sacarAuto();
 
