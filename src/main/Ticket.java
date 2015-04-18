@@ -23,5 +23,9 @@ public class Ticket
 	{
 		return this.encera;
 	}
+	public TipoDeServicio getTipoServicio()
+	{
+		return this.servicio;
+	}
 
 }

@@ -75,7 +75,7 @@ public class Main
 		Auto auto;
 		aux = io.buscarEnArchivo(dia);
 		clientesPromedio = aux[0];
-		
+
 		try
 		{
 			poisson = new PoissonSimulator(clientesPromedio, (int) horarioAtencion);
@@ -87,36 +87,38 @@ public class Main
 		}
 
 		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
-		
+
 		do
 		{
 			evento = timeline.nextEvento();
 			if (evento.getClass() == LlegadaAuto.class)
 			{
-				timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
 				mLavado.ingresarAuto(evento.getAuto());
-			}
-			else if (evento.getClass() == SalidaDeCola.class)
-			{
-				
+				timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
 			}
 			else
-				if (evento.getClass() == SalidaDeMaquina.class)// realmente salida de maquina tiene significado en la
-																// maquina de lavado, porque salir de encerado es si o
-																// si fin de servicio 
+				if (evento.getClass() == SalidaDeCola.class)
 				{
-					salidaDeMaquina = (SalidaDeMaquina) evento; // esto no se si es asi
-					auto = salidaDeMaquina.getMaquina().sacarAuto();
-					
-					if (auto.getTicket().getEncerado())
-					{
-						mEncerado.ingresarAuto(auto);
-					}
-					else
-					{
-						timeline.newEvent(new FinDeServicio(auto));
-					}
+
 				}
+				else
+					if (evento.getClass() == SalidaDeMaquina.class)// realmente salida de maquina tiene significado en
+																	// la
+																	// maquina de lavado, porque salir de encerado es si
+																	// o si fin de servicio
+					{
+						salidaDeMaquina = (SalidaDeMaquina) evento; // esto no se si es asi
+						auto = salidaDeMaquina.getMaquina().sacarAuto();
+
+						if (auto.getTicket().getEncerado())
+						{
+							mEncerado.ingresarAuto(auto);
+						}
+						else
+						{
+							timeline.newEvent(new FinDeServicio(auto));
+						}
+					}
 			if (mLavado.estaVacia())
 			{
 				try
