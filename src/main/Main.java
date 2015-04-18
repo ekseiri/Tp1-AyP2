@@ -3,6 +3,7 @@ package main;
 import events.Evento;
 import events.FinDeServicio;
 import events.LlegadaAuto;
+import events.SalidaDeCola;
 import events.SalidaDeMaquina;
 import utils.PoissonSimulator;
 import utils.PoissonSimulatorException;
@@ -74,6 +75,7 @@ public class Main
 		Auto auto;
 		aux = io.buscarEnArchivo(dia);
 		clientesPromedio = aux[0];
+		
 		try
 		{
 			poisson = new PoissonSimulator(clientesPromedio, (int) horarioAtencion);
@@ -85,6 +87,7 @@ public class Main
 		}
 
 		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
+		
 		do
 		{
 			evento = timeline.nextEvento();
@@ -93,13 +96,18 @@ public class Main
 				timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
 				mLavado.ingresarAuto(evento.getAuto());
 			}
+			else if (evento.getClass() == SalidaDeCola.class)
+			{
+				
+			}
 			else
 				if (evento.getClass() == SalidaDeMaquina.class)// realmente salida de maquina tiene significado en la
 																// maquina de lavado, porque salir de encerado es si o
-																// si fin de servicio
+																// si fin de servicio 
 				{
 					salidaDeMaquina = (SalidaDeMaquina) evento; // esto no se si es asi
 					auto = salidaDeMaquina.getMaquina().sacarAuto();
+					
 					if (auto.getTicket().getEncerado())
 					{
 						mEncerado.ingresarAuto(auto);

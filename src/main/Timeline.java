@@ -28,6 +28,7 @@ public class Timeline
 		this.horarioActual = aux.getHorario();
 		return aux;
 	}
+	
 	public boolean newEvent(Evento evento)//puse el boolean porque .add devuelve eso, pero puede obviarse
 	{
 		return this.timeline.add(evento);
