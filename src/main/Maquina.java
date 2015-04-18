@@ -53,8 +53,20 @@ public abstract class Maquina
 		
 		return auto;
 	}
+	public void ingresarAuto(Auto auto)
+	{
+		try
+		{
+			this.cola.encolar(auto);
+		}
+		catch (ColaException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	public void avanzarCola(Maquina proximaMaquina)
+	public void avanzarCola(Maquina proximaMaquina) //para mi esto no va porque se maneja desde el main con el evento salida de maquina
 	{
 		
 	}

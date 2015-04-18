@@ -1,6 +1,8 @@
 package main;
 
+import events.Evento;
 import events.LlegadaAuto;
+import events.SalidaDeMaquina;
 import utils.PoissonSimulator;
 import utils.PoissonSimulatorException;
 import utils.io;
@@ -61,6 +63,9 @@ public class Main
 		MaquinaEncerado mEncerado = new MaquinaEncerado();
 		PoissonSimulator poisson = null; // me obligo eclipse a nullear
 		Timeline timeline = new Timeline();
+		Evento evento;
+		SalidaDeMaquina salidaDeMaquina;
+		Auto auto;
 		aux = io.buscarEnArchivo(dia);
 		clientesPromedio = aux[0];
 		try
@@ -73,9 +78,34 @@ public class Main
 			e.printStackTrace();
 		}
 
+		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
 		do
 		{
-			timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
+			evento = timeline.nextEvento();
+			if (evento.getClass() == LlegadaAuto.class)
+			{
+				timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
+				mLavado.ingresarAuto(evento.getAuto());
+			}
+			else
+				if (evento.getClass() == SalidaDeMaquina.class)
+				{
+					salidaDeMaquina = (SalidaDeMaquina) evento; // * esto no se
+																// si es asi
+					auto = salidaDeMaquina.getMaquina().sacarAuto();
+					if (auto.getTicket().getEncerado())
+					{
+						mEncerado.ingresarAuto(auto);
+					}
+				}
+			if (mLavado.estaVacia())
+			{
+				mLavado.nextAuto();
+			}
+			if (mEncerado.estaVacia())
+			{
+				mEncerado.nextAuto();
+			}
 
 		}
 		while (timeline.getHorarioActual() < horarioAtencion);
