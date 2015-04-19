@@ -8,7 +8,6 @@ public abstract class Maquina
 {
 	private Cola cola;
 	private Auto auto;
-	private Servicio servicio;
 
 	/**
 	 * Crea una nueva Maquina, con su Cola asociada

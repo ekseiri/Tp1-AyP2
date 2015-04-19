@@ -1,10 +1,6 @@
 package main;
 
-import events.Evento;
-import events.FinDeServicio;
-import events.LlegadaAuto;
-import events.SalidaDeCola;
-import events.SalidaDeMaquina;
+import events.*;
 import utils.PoissonSimulator;
 import utils.PoissonSimulatorException;
 import utils.io;
