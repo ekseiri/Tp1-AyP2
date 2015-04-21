@@ -20,7 +20,7 @@ public abstract class Maquina
 	/**
 	 * Devuelve true si no hay ingresado en la maquina
 	 */
-	public boolean estaVacia()
+	private boolean estaVacia()
 	{
 		return auto == null;
 	}
@@ -30,8 +30,6 @@ public abstract class Maquina
 	 */
 	public void nextAuto() throws NoHayAutosException
 	{
-
-		// no se si es una negrada esto, mepa que si
 		try
 		{
 			this.auto = (Auto) this.cola.desencolar();
@@ -54,14 +52,16 @@ public abstract class Maquina
 
 		return auto;
 	}
-
-	public void ingresarAuto(Auto auto)
+	
+	/**
+	 * Ingresa el auto en cola
+	 * @param auto
+	 */
+	public void encolarAuto(Auto auto)
 	{
 		if (auto.getTicket().getTipoServicio() == TipoDeServicio.ECONOMICO)
 		{
-			this.servicio = economico;// ?? revisar, en teoria el ticket ya tiene tipo de servicio y al llegar a la
-										// maquina se le adjunta a la maquina, en teoria para calcular el tiempo y
-										// devolver el evento salida de maquina
+			
 		}
 		try
 		{
