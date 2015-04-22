@@ -3,12 +3,15 @@ public class DeterminadorDeServicio
 {
 
 	/**
+	 * <p>
 	 * Determina el tipo de servicio que va a requerir el auto de acuerdo al
-	 * porcentaje de ocurrencia de cada uno.<br>
-	 * 50% Economico<br>
-	 * 30% Completo<br>
-	 * 20% Premium<br>
-	 * 
+	 * porcentaje de ocurrencia de cada uno.
+	 * </p>
+	 * <ul>
+	 * <li>50% Economico</li>
+	 * <li>30% Completo</li>
+	 * <li>20% Premium</li>
+	 * </ul>
 	 * @return TipoDeServicio
 	 */
 	public static TipoDeServicio getServicio()
