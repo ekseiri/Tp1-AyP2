@@ -20,7 +20,7 @@ public abstract class Maquina
 	/**
 	 * Devuelve true si no hay ingresado en la maquina
 	 */
-	private boolean estaVacia()
+	public boolean estaVacia()
 	{
 		return auto == null;
 	}

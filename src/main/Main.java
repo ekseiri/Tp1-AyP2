@@ -26,6 +26,9 @@ public class Main
 
 	}
 
+	/**
+	 * post : busca en archivo y genera los servicios.
+	 */
 	static void generarServicios()
 	{
 		int tiempo;
@@ -58,6 +61,11 @@ public class Main
 
 	}
 
+	/**
+	 * pre : debe recibir un objeto String indicando el día.
+	 * post : se genera todo el proceso de la máquina de lavado correspondiente al día pasado por parámetro.
+	 * @param dia
+	 */
 	static void proceso(String dia)
 	{
 		int[] aux;
@@ -82,31 +90,21 @@ public class Main
 			e.printStackTrace();
 		}
 
-		timeline.newEvent(
-				new LlegadaAuto(
-						new Auto(
-								new Ticket(
-										poisson.proximoArribo()
-								)
-						)
-				)
-		);
+		/**
+		 * post : genera la llegada del próximo auto.
+		 */
+		timeline.newEvent( new LlegadaAuto( new Auto( new Ticket( poisson.proximoArribo() ) ) ) );
 
 		do
 		{
 			evento = timeline.nextEvento();
 			if (evento.getClass() == LlegadaAuto.class)
 			{
-				mLavado.ingresarAuto(evento.getAuto());
-				timeline.newEvent(
-						new LlegadaAuto(
-								new Auto(
-										new Ticket(
-												poisson.proximoArribo()
-										)
-								)
-						)
-				);
+				/**
+				 * post : encola un auto y sabemos cuando el próximo arribo.
+				 */
+				mLavado.encolarAuto(evento.getAuto());
+				timeline.newEvent( new LlegadaAuto( new Auto( new Ticket( poisson.proximoArribo() )	) )	);
 			}
 			else
 				if (evento.getClass() == SalidaDeCola.class)
@@ -124,11 +122,7 @@ public class Main
 
 						if (auto.getTicket().getEncerado())
 						{
-							mEncerado.ingresarAuto(auto);
-						}
-						else
-						{
-							timeline.newEvent(new FinDeServicio(auto));
+							mEncerado.encolarAuto(auto);
 						}
 					}
 			if (mLavado.estaVacia())
