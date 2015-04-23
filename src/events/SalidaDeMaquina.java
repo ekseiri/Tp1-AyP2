@@ -1,9 +1,11 @@
 package events;
 
 import main.Auto;
+import main.Main;
 import main.Maquina;
 import main.MaquinaEncerado;
 import main.MaquinaLavado;
+import main.TipoDeServicio;
 
 public class SalidaDeMaquina extends Evento
 {
@@ -30,8 +32,28 @@ public class SalidaDeMaquina extends Evento
 	{
 		super(auto);
 		
-		this.maquina = maquina;
-				
+		TipoDeServicio servicio = this.getAuto().getTicket().getTipoServicio();
+		
+		if (maquina.getClass() == MaquinaLavado.class)
+		{
+			if (servicio == TipoDeServicio.ECONOMICO)
+			{
+				this.horario = Main.timeline.getHorarioActual() + Main.economico.getTiempoTotal();
+			} else if (servicio == TipoDeServicio.COMPLETO)
+			{
+				this.horario = Main.timeline.getHorarioActual() + Main.completo.getTiempoTotal();
+			} else if (servicio == TipoDeServicio.PREMIUM)
+			{
+				this.horario = Main.timeline.getHorarioActual() + Main.premium.getTiempoTotal();
+			}
+		} else
+		{	
+			this.horario = Main.timeline.getHorarioActual() + Main.encerado.getTiempoTotal();
+		}
+		
+		
+		this.maquina = maquina; 
+		
 		finDelServicio = (maquina.getClass() == MaquinaEncerado.class 
 							|| !(this.getAuto().getTicket().getEncerado())
 							&& maquina.getClass() == MaquinaEncerado.class);
@@ -43,8 +65,14 @@ public class SalidaDeMaquina extends Evento
 		return this.maquina;
 		
 	}
+	
 	public double getHorario()
+	{	
+		return this.horario;
+	}
+	
+	public boolean esFinDeServicio()
 	{
-		return this.getAuto().getTicket().getHorario();
+		return this.finDelServicio;
 	}
 }

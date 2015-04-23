@@ -22,7 +22,7 @@ public class Timeline
 		return horarioActual;
 	}
 
-	public Evento nextEvento()
+	public Evento getNextEvento()
 	{
 		Evento aux = (Evento) timeline.poll();
 		this.horarioActual = aux.getHorario();

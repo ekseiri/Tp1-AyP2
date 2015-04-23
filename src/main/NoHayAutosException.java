@@ -1,14 +1,14 @@
 package main;
 
-public class NoHayAutosException extends Exception
+public class NoHayAutosException extends NullPointerException
 /**
  * 
  */
 {
 
-	public NoHayAutosException(String s)
+	public NoHayAutosException()
 	{
-		super(s);
+		super();
 	}
 
 }

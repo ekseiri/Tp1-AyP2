@@ -10,6 +10,7 @@ public class Main
 	public static Servicio economico;
 	public static Servicio completo;
 	public static Servicio premium;
+	public static Servicio encerado;
 	public static Timeline timeline;
 	public static final double horarioAtencion = 720;
 
@@ -45,6 +46,8 @@ public class Main
 		Proceso secadoAutomatico = new Proceso(aux[0], aux[1]);
 		aux = io.buscarEnArchivo("B");
 		Proceso brillo = new Proceso(aux[0], aux[1]);
+		aux = io.buscarEnArchivo("E");
+		encerado = new Servicio(aux[0], aux[1]);
 
 		// economico
 		tiempo = lavadoYEnjuague.getTiempo() + lavadoDeLlantas.getTiempo() + secadoAutomatico.getTiempo();
@@ -70,12 +73,13 @@ public class Main
 	{
 		int[] aux;
 		int clientesPromedio;
-		MaquinaLavado mLavado = new MaquinaLavado();
-		MaquinaEncerado mEncerado = new MaquinaEncerado();
-		PoissonSimulator poisson = null; // me obligo eclipse a nullear
+		Maquina maquina = null;
+		MaquinaLavado maquinaLavado = new MaquinaLavado();
+		MaquinaEncerado maquinaEncerado = new MaquinaEncerado();
+		PoissonSimulator poisson = null;
 		Timeline timeline = new Timeline();
 		Evento evento;
-		SalidaDeMaquina salidaDeMaquina;
+		
 		Auto auto;
 		aux = io.buscarEnArchivo(dia);
 		clientesPromedio = aux[0];
@@ -93,63 +97,62 @@ public class Main
 		/**
 		 * post : genera la llegada del próximo auto.
 		 */
-		timeline.newEvent( new LlegadaAuto( new Auto( new Ticket( poisson.proximoArribo() ) ) ) );
+		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
 
 		do
 		{
-			evento = timeline.nextEvento();
+			evento = timeline.getNextEvento();
+			
 			if (evento.getClass() == LlegadaAuto.class)
 			{
-				/**
-				 * post : encola un auto y sabemos cuando el próximo arribo.
-				 */
-				mLavado.encolarAuto(evento.getAuto());
-				timeline.newEvent( new LlegadaAuto( new Auto( new Ticket( poisson.proximoArribo() )	) )	);
-			}
-			else
-				if (evento.getClass() == SalidaDeCola.class)
+				timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(Main.timeline.getHorarioActual() 
+						+ poisson.proximoArribo()))));
+							
+				//post : encola el auto y sabemos cuando el próximo arribo.
+				maquinaLavado.encolarAuto(evento.getAuto());
+				
+				//Si la maquina de lavado se encuentra vacia, se ingresa el auto
+				if (maquinaLavado.estaVacia()) 
 				{
-
+						timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquinaLavado));
+											
 				}
-				else
-					if (evento.getClass() == SalidaDeMaquina.class){// realmente salida de maquina tiene significado en
-																	// la
-																	// maquina de lavado, porque salir de encerado es si
-																	// o si fin de servicio
-						
-						salidaDeMaquina = (SalidaDeMaquina) evento; // esto no se si es asi
-						auto = salidaDeMaquina.getMaquina().sacarAuto();
-
-						if (auto.getTicket().getEncerado())
-						{
-							mEncerado.encolarAuto(auto);
-						}
+				
+			}
+			else if (evento.getClass() == SalidaDeCola.class)
+			{				
+				maquina = ((SalidaDeCola) evento).getMaquina();
+				
+				try
+				{
+					maquina.getNextAuto();
+				} catch (NoHayAutosException e) {}
+				
+				timeline.newEvent(new SalidaDeMaquina(evento.getAuto(),maquina));
+				
+			}
+			else if (evento.getClass() == SalidaDeMaquina.class)
+			{
+				maquina = ((SalidaDeMaquina) evento).getMaquina();
+				
+				if (((SalidaDeMaquina) evento).esFinDeServicio())
+				{
+					maquina.sacarAuto();
+					timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquina));
+					
+				} 
+				else if (evento.getAuto().getTicket().getEncerado()) 
+				{
+					maquinaEncerado.encolarAuto(maquina.sacarAuto());
+					timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquina));
+					if (maquinaEncerado.estaVacia())
+					{
+						timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquinaEncerado));
 					}
-			if (mLavado.estaVacia())
-			{
-				try
-				{
-					mLavado.nextAuto();
+					
 				}
-				catch (NoHayAutosException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}
-			if (mEncerado.estaVacia())
-			{
-				try
-				{
-					mEncerado.nextAuto();
-				}
-				catch (NoHayAutosException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
 		}
 		while (timeline.getHorarioActual() < horarioAtencion);
 

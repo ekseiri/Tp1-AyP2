@@ -1,8 +1,8 @@
 package main;
 public class Proceso
 {
-	private int tiempo;
-	private int costo;
+	private int tiempo = 0;
+	private int costo = 0;
 
 	public Proceso(int tiempo, int costo)
 	{

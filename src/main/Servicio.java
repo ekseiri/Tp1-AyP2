@@ -1,22 +1,15 @@
 package main;
-public class Servicio // si, es igual a proceso, estoy seguro que algo falta
+public class Servicio extends Proceso
 {
-	private int tiempo = 0;
-	private int costo = 0;
 
 	public Servicio(int tiempo, int costo)
 	{
-		this.tiempo = tiempo;
-		this.costo = costo;
+		super(tiempo, costo);
 	}
 
-	public int getTiempoLavado()
+	public int getTiempoTotal()
 	{
-		return this.tiempo;
+		return super.getTiempo();
 	}
 
-	public int getCosto()
-	{
-		return this.costo;
-	}
 }

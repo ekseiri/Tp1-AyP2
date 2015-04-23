@@ -28,7 +28,7 @@ public abstract class Maquina
 	/**
 	 * Saca el primer auto de la cola y lo ingresa a la maquina
 	 */
-	public void nextAuto() throws NoHayAutosException
+	public void getNextAuto() throws NoHayAutosException
 	{
 		try
 		{
@@ -37,7 +37,7 @@ public abstract class Maquina
 		catch (ColaException e)
 		{
 			this.auto = null;
-			throw new NoHayAutosException("La cola de la maquina esta vacia");
+			throw new NoHayAutosException();
 		}
 	}
 
@@ -47,7 +47,7 @@ public abstract class Maquina
 	public Auto sacarAuto()
 	{
 
-		Auto auto = this.auto; // revisar si no es otra villereada
+		Auto auto = this.auto;
 		this.auto = null;
 
 		return auto;
@@ -73,11 +73,15 @@ public abstract class Maquina
 			e.printStackTrace();
 		}
 	}
-
-	public void avanzarCola(Maquina proximaMaquina) // para mi esto no va porque se maneja desde el main con el evento
-													// salida de maquina
+	
+	/**
+	 * Devuelve el auto que se encuentra en la Maquina
+	 *  
+	 * @return Auto
+	 */
+	public Auto getAuto() 
 	{
-
+		return this.auto;
 	}
 
 }
