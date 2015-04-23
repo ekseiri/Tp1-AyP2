@@ -28,7 +28,7 @@ public abstract class Maquina
 	/**
 	 * Saca el primer auto de la cola y lo ingresa a la maquina
 	 */
-	public void getNextAuto() throws NoHayAutosException
+	public void nextAuto() throws NoHayAutosException
 	{
 		try
 		{
@@ -82,6 +82,11 @@ public abstract class Maquina
 	public Auto getAuto() 
 	{
 		return this.auto;
+	}
+	
+	public Cola getCola()
+	{
+		return this.cola;
 	}
 
 }

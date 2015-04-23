@@ -124,10 +124,11 @@ public class Main
 				
 				try
 				{
-					maquina.getNextAuto();
+					maquina.nextAuto();
+					timeline.newEvent(new SalidaDeMaquina(evento.getAuto(),maquina));
 				} catch (NoHayAutosException e) {}
 				
-				timeline.newEvent(new SalidaDeMaquina(evento.getAuto(),maquina));
+				
 				
 			}
 			else if (evento.getClass() == SalidaDeMaquina.class)
@@ -137,12 +138,21 @@ public class Main
 				if (((SalidaDeMaquina) evento).esFinDeServicio())
 				{
 					maquina.sacarAuto();
-					timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquina));
-					
+					if (!maquina.getCola().colaVacia())
+					{
+						timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquina));
+					}
 				} 
+				
 				else if (evento.getAuto().getTicket().getEncerado()) 
 				{
 					maquinaEncerado.encolarAuto(maquina.sacarAuto());
+					
+					if (maquinaEncerado.estaVacia())
+					{
+						timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquinaEncerado));
+					}
+					
 					timeline.newEvent(new SalidaDeCola(evento.getAuto(),maquina));
 					if (maquinaEncerado.estaVacia())
 					{
