@@ -65,8 +65,8 @@ public class Main
 	}
 
 	/**
-	 * pre : debe recibir un objeto String indicando el dÌa.
-	 * post : se genera todo el proceso de la m·quina de lavado correspondiente al dÌa pasado por par·metro.
+	 * pre : debe recibir un objeto String indicando el d√≠a.
+	 * post : se simula todo el trabajo correspondiente al d√≠a pasado por par√°metro.
 	 * @param dia
 	 */
 	static void proceso(String dia)
@@ -80,7 +80,6 @@ public class Main
 		Timeline timeline = new Timeline();
 		Evento evento;
 		
-		Auto auto;
 		aux = io.buscarEnArchivo(dia);
 		clientesPromedio = aux[0];
 
@@ -95,7 +94,7 @@ public class Main
 		}
 
 		/**
-		 * post : genera la llegada del prÛximo auto.
+		 * post : genera la llegada del pr√≥ximo auto.
 		 */
 		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson.proximoArribo()))));
 
@@ -108,7 +107,7 @@ public class Main
 				timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(Main.timeline.getHorarioActual() 
 						+ poisson.proximoArribo()))));
 							
-				//post : encola el auto y sabemos cuando el prÛximo arribo.
+				//post : encola el auto y sabemos cuando el pr√≥ximo arribo.
 				maquinaLavado.encolarAuto(evento.getAuto());
 				
 				//Si la maquina de lavado se encuentra vacia, se ingresa el auto

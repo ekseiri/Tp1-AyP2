@@ -32,17 +32,15 @@ public class SalidaDeMaquina extends Evento
 	{
 		super(auto);
 		
-		TipoDeServicio servicio = this.getAuto().getTicket().getTipoServicio();
-		
 		if (maquina.getClass() == MaquinaLavado.class)
 		{
-			if (servicio == TipoDeServicio.ECONOMICO)
+			if (this.getAuto().getTicket().getTipoServicio() == TipoDeServicio.ECONOMICO)
 			{
 				this.horario = Main.timeline.getHorarioActual() + Main.economico.getTiempoTotal();
-			} else if (servicio == TipoDeServicio.COMPLETO)
+			} else if (this.getAuto().getTicket().getTipoServicio() == TipoDeServicio.COMPLETO)
 			{
 				this.horario = Main.timeline.getHorarioActual() + Main.completo.getTiempoTotal();
-			} else if (servicio == TipoDeServicio.PREMIUM)
+			} else if (this.getAuto().getTicket().getTipoServicio() == TipoDeServicio.PREMIUM)
 			{
 				this.horario = Main.timeline.getHorarioActual() + Main.premium.getTiempoTotal();
 			}
