@@ -8,7 +8,7 @@ import utils.Comparador;
 public class Timeline {
     private PriorityQueue<Evento> timeline;
     private double horarioActual;
-    private Comparador comparador;
+    private Comparador comparador = new Comparador();
 
     public Timeline() {
 	this.horarioActual = 0;
@@ -16,18 +16,16 @@ public class Timeline {
     }
 
     public double getHorarioActual() {
-	return horarioActual;
+	return this.horarioActual;
     }
 
     public Evento getNextEvento() {
-	Evento aux = (Evento) timeline.poll();
-	this.horarioActual = aux.getHorario();
-	return aux;
+	Evento evento = (Evento) timeline.poll();
+	this.horarioActual = this.horarioActual + evento.getHorario();
+	return evento;
     }
 
-    public boolean newEvent(Evento evento)// puse el boolean porque .add
-					  // devuelve eso, pero puede obviarse
-    {
+    public boolean newEvent(Evento evento) {
 	return this.timeline.add(evento);
     }
 }

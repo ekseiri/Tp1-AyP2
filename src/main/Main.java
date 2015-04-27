@@ -101,9 +101,7 @@ public class Main {
 	    evento = timeline.getNextEvento();
 
 	    if (evento.getClass() == LlegadaAuto.class) {
-		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(
-			Main.timeline.getHorarioActual()
-				+ poisson.proximoArribo()))));
+		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(Main.timeline.getHorarioActual() + poisson.proximoArribo()))));
 
 		// post : encola el auto y sabemos cuando el próximo arribo.
 		maquinaLavado.encolarAuto(evento.getAuto());

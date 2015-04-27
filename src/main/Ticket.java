@@ -8,9 +8,13 @@ public class Ticket
     private boolean encera;
 
     public Ticket(double horaDeLlegada) {
-	this.horaDeLlegada = horaDeLlegada;
-	this.servicio = DeterminadorDeServicio.getServicio();
-	this.encera = DeterminadorDeServicio.getEncerado();
+	try {
+	    this.horaDeLlegada = horaDeLlegada;
+    	    this.servicio = DeterminadorDeServicio.getServicio();
+    	    this.encera = DeterminadorDeServicio.getEncerado();
+	} catch (NullPointerException e) {
+	    e.printStackTrace();
+	}
     }
 
     public double getHorario() {
