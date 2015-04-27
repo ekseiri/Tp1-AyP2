@@ -11,6 +11,7 @@ public class Main {
     public static Servicio premium;
     public static Servicio encerado;
     public static Timeline timeline;
+    public static Stats statsContainer;
     public static final double horarioAtencion = 720;
 
     public static void main(String[] args) {
