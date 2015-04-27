@@ -2,14 +2,16 @@ package events;
 
 import main.*;
 
+
+
 public class SalidaDeCola extends Evento {
     private double horario;
     private Maquina maquina;
 
     public SalidaDeCola(Auto auto, Maquina maquina) {
 	super(auto);
+	
 	this.maquina = maquina;
-
 	this.horario = Main.timeline.getHorarioActual() + Double.MIN_VALUE;
 
     }

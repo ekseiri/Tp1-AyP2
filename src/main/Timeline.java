@@ -3,6 +3,7 @@ package main;
 import java.util.PriorityQueue;
 
 import events.Evento;
+
 import utils.Comparador;
 
 public class Timeline {
@@ -25,7 +26,7 @@ public class Timeline {
 	return evento;
     }
 
-    public boolean newEvent(Evento evento) {
-	return this.timeline.add(evento);
+    public void newEvent(Evento evento) {
+	this.timeline.add(evento);
     }
 }

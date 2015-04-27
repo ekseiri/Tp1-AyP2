@@ -8,6 +8,7 @@ import events.Evento;
  *
  */
 public class Comparador implements Comparator<Evento> {
+    
     public int compare(Evento x, Evento y) {
 	if (x.getHorario() > y.getHorario()) {
 	    return 1;

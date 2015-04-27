@@ -10,11 +10,12 @@ public class Main {
     public static Servicio completo;
     public static Servicio premium;
     public static Servicio encerado;
-    public static Timeline timeline;
+    public static Timeline timeline  = new Timeline();
     public static Stats statsContainer;
     public static final double horarioAtencion = 720;
 
     public static void main(String[] args) {
+	
 	generarServicios();
 	proceso("Lunes");
 	proceso("Martes");
@@ -29,7 +30,7 @@ public class Main {
     /**
      * post : busca en archivo y genera los servicios.
      */
-    static void generarServicios() {
+    private static void generarServicios() {
 	int tiempo;
 	int costo;
 	int[] aux;
@@ -70,14 +71,13 @@ public class Main {
      * 
      * @param dia
      */
-    static void proceso(String dia) {
+    private static void proceso(String dia) {
 	int[] aux;
 	int clientesPromedio;
 	Maquina maquina = null;
 	MaquinaLavado maquinaLavado = new MaquinaLavado();
 	MaquinaEncerado maquinaEncerado = new MaquinaEncerado();
 	PoissonSimulator poisson = null;
-	Timeline timeline = new Timeline();
 	Evento evento;
 
 	aux = io.buscarEnArchivo(dia);
@@ -94,14 +94,24 @@ public class Main {
 	/**
 	 * post : genera la llegada del próximo auto.
 	 */
-	timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson
+	Main.timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson
 		.proximoArribo()))));
 
 	do {
-	    evento = timeline.getNextEvento();
+	    evento = Main.timeline.getNextEvento();
 
 	    if (evento.getClass() == LlegadaAuto.class) {
-		timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(Main.timeline.getHorarioActual() + poisson.proximoArribo()))));
+		
+		/*
+		double h = Main.timeline.getHorarioActual();
+		double p = poisson.proximoArribo();
+		Ticket ticket = new Ticket(h + p);
+		Auto auto = new Auto(ticket);
+		Evento e = new LlegadaAuto(auto);
+		Main.timeline.newEvent(e);
+		*/
+		Main.timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(
+			Main.timeline.getHorarioActual() + poisson.proximoArribo()))));
 
 		// post : encola el auto y sabemos cuando el próximo arribo.
 		maquinaLavado.encolarAuto(evento.getAuto());
@@ -109,7 +119,7 @@ public class Main {
 		// Si la maquina de lavado se encuentra vacia, se ingresa el
 		// auto
 		if (maquinaLavado.estaVacia()) {
-		    timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+		    Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
 			    maquinaLavado));
 
 		}
@@ -119,7 +129,7 @@ public class Main {
 
 		try {
 		    maquina.nextAuto();
-		    timeline.newEvent(new SalidaDeMaquina(evento.getAuto(),
+		    Main.timeline.newEvent(new SalidaDeMaquina(evento.getAuto(),
 			    maquina));
 		} catch (NoHayAutosException e) {}
 
@@ -129,34 +139,36 @@ public class Main {
 		if (((SalidaDeMaquina) evento).esFinDeServicio()) {
 		    maquina.sacarAuto();
 		    if (!maquina.getCola().colaVacia()) {
-			timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+			Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
 				maquina));
 		    }
 		}
 
 		else if (evento.getAuto().getTicket().getEncerado()) {
+		    
 		    maquinaEncerado.encolarAuto(maquina.sacarAuto());
 
 		    if (maquinaEncerado.estaVacia()) {
-			timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+			Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
 				maquinaEncerado));
 		    }
 
-		    timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+		    Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
 			    maquina));
 		    if (maquinaEncerado.estaVacia()) {
-			timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+			Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
 				maquinaEncerado));
 		    }
 
 		}
 
 	    }
-	} while (timeline.getHorarioActual() < horarioAtencion);
+	} while (Main.timeline.getHorarioActual() < horarioAtencion);
 
     }
 
-    static void imprimirResultados() {
+    private static void imprimirResultados() {
 	System.out.println();
     }
+    
 }
