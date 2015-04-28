@@ -51,6 +51,11 @@ public class Timeline {
 	this.timeline.add(evento);
     }
     
+    /**
+     * Determina si el dia se terminó, esto es verdadero cuando en el timeline
+     * no quedan eventos pendientes (se atendieron todos los autos) y el horario 
+     * de atencion es >= 720
+     */
     public boolean finDelDia(){
 	return (timeline.isEmpty() && (this.horarioActual >= Main.horarioAtencion));
     }
