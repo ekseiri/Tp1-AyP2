@@ -1,5 +1,10 @@
 package main;
 
+/**
+ * Clase contenedora para los metodos utilizados para determinar los servicios
+ * consumidos por un auto al ingresar al lavadero
+ *
+ */
 public class DeterminadorDeServicio {
 
     /**

@@ -94,7 +94,7 @@ public class Main {
 	/**
 	 * post : genera la llegada del próximo auto.
 	 */
-	Main.timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(poisson
+	Main.timeline.newEvento(new LlegadaAuto(new Auto(new Ticket(poisson
 		.proximoArribo()))));
 
 	do {
@@ -110,7 +110,7 @@ public class Main {
 		Evento e = new LlegadaAuto(auto);
 		Main.timeline.newEvent(e);
 		*/
-		Main.timeline.newEvent(new LlegadaAuto(new Auto(new Ticket(
+		Main.timeline.newEvento(new LlegadaAuto(new Auto(new Ticket(
 			Main.timeline.getHorarioActual() + poisson.proximoArribo()))));
 
 		// post : encola el auto y sabemos cuando el próximo arribo.
@@ -119,7 +119,7 @@ public class Main {
 		// Si la maquina de lavado se encuentra vacia, se ingresa el
 		// auto
 		if (maquinaLavado.estaVacia()) {
-		    Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+		    Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
 			    maquinaLavado));
 
 		}
@@ -129,7 +129,7 @@ public class Main {
 
 		try {
 		    maquina.nextAuto();
-		    Main.timeline.newEvent(new SalidaDeMaquina(evento.getAuto(),
+		    Main.timeline.newEvento(new SalidaDeMaquina(evento.getAuto(),
 			    maquina));
 		} catch (NoHayAutosException e) {}
 
@@ -139,7 +139,7 @@ public class Main {
 		if (((SalidaDeMaquina) evento).esFinDeServicio()) {
 		    maquina.sacarAuto();
 		    if (!maquina.getCola().colaVacia()) {
-			Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+			Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
 				maquina));
 		    }
 		}
@@ -149,14 +149,14 @@ public class Main {
 		    maquinaEncerado.encolarAuto(maquina.sacarAuto());
 
 		    if (maquinaEncerado.estaVacia()) {
-			Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+			Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
 				maquinaEncerado));
 		    }
 
-		    Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+		    Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
 			    maquina));
 		    if (maquinaEncerado.estaVacia()) {
-			Main.timeline.newEvent(new SalidaDeCola(evento.getAuto(),
+			Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
 				maquinaEncerado));
 		    }
 
