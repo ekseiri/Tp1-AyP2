@@ -3,7 +3,9 @@ package main;
 import utils.Cola;
 import utils.ColaException;
 
-//Abstracta? Mepa que si => a full
+/**
+ * Clase que representa una Maquina generica
+ */
 public abstract class Maquina {
     private Cola cola;
     private Auto auto;
@@ -16,7 +18,7 @@ public abstract class Maquina {
     }
 
     /**
-     * Devuelve true si no hay ingresado en la maquina
+     * Devuelve true si no hay auto ingresado en la maquina
      */
     public boolean estaVacia() {
 	return auto == null;
@@ -35,7 +37,9 @@ public abstract class Maquina {
     }
 
     /**
-     * Retira el auto de la maquina y lo pasa al siguiente estado
+     * Retira el auto de la maquina y lo devuelve
+     * 
+     * @return auto Auto
      */
     public Auto sacarAuto() {
 
@@ -70,7 +74,11 @@ public abstract class Maquina {
     public Auto getAuto() {
 	return this.auto;
     }
-
+    
+    /**
+     * Devuelve la cola de la maquina
+     * @return
+     */
     public Cola getCola() {
 	return this.cola;
     }
