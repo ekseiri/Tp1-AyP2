@@ -22,6 +22,7 @@ public class Timeline {
     public Timeline() {
 	this.horarioActual = 0;
 	this.timeline = new PriorityQueue<Evento>(comparador);
+	
     }
     
     /**
@@ -48,5 +49,9 @@ public class Timeline {
      */
     public void newEvento(Evento evento) {
 	this.timeline.add(evento);
+    }
+    
+    public boolean finDelDia(){
+	return (timeline.isEmpty() && (this.horarioActual >= Main.horarioAtencion));
     }
 }

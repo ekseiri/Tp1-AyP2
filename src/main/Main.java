@@ -110,9 +110,11 @@ public class Main {
 		Evento e = new LlegadaAuto(auto);
 		Main.timeline.newEvent(e);
 		*/
-		Main.timeline.newEvento(new LlegadaAuto(new Auto(new Ticket(
+		if (timeline.getHorarioActual() <= Main.horarioAtencion) {
+		    Main.timeline.newEvento(new LlegadaAuto(new Auto(new Ticket(
 			Main.timeline.getHorarioActual() + poisson.proximoArribo()))));
-
+		}
+		
 		// post : encola el auto y sabemos cuando el próximo arribo.
 		maquinaLavado.encolarAuto(evento.getAuto());
 
@@ -163,8 +165,9 @@ public class Main {
 		}
 
 	    }
-	} while (Main.timeline.getHorarioActual() < horarioAtencion);
-
+	} while (! timeline.finDelDia());
+	
+	
     }
 
     private static void imprimirResultados() {
