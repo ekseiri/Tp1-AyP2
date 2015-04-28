@@ -38,7 +38,7 @@ public class Timeline {
      */
     public Evento getNextEvento() {
 	Evento evento = (Evento) timeline.poll();
-	this.horarioActual = this.horarioActual + evento.getHorario();
+	this.horarioActual =  evento.getHorario();
 	return evento;
     }
     
