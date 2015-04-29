@@ -110,6 +110,17 @@ public class Main {
 		Evento e = new LlegadaAuto(auto);
 		Main.timeline.newEvent(e);
 		*/
+		
+		
+		//la idea era poner solo esta linea pero nullponter
+		statsContainer.addServicio(evento.getAuto().getTicket().getTipoServicio());
+		
+		//hice estas 4 pero es igual, nullpointer
+		if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.ECONOMICO){statsContainer.addServicio(TipoDeServicio.ECONOMICO);}
+		if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.COMPLETO){statsContainer.addServicio(TipoDeServicio.COMPLETO);}
+		if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.PREMIUM){statsContainer.addServicio(TipoDeServicio.PREMIUM);}
+		if (evento.getAuto().getTicket().getEncerado()){statsContainer.addServicio(TipoDeServicio.ENCERADO);}
+		
 		if (timeline.getHorarioActual() <= Main.horarioAtencion) {
 		    Main.timeline.newEvento(new LlegadaAuto(new Auto(new Ticket(
 			Main.timeline.getHorarioActual() + poisson.proximoArribo()))));
@@ -131,13 +142,19 @@ public class Main {
 
 		try {
 		    maquina.nextAuto();
+		    
 		    Main.timeline.newEvento(new SalidaDeMaquina(evento.getAuto(),
 			    maquina));
 		} catch (NoHayAutosException e) {}
 
 	    } else if (evento.getClass() == SalidaDeMaquina.class) {
 		maquina = ((SalidaDeMaquina) evento).getMaquina();
-
+		
+		if (maquina.getClass()==MaquinaLavado.class){
+		    statsContainer.addTiempoEnCola(maquina.getAuto().getTicket().getTipoServicio(),((MaquinaLavado)maquina).getTiempoEnCola());
+		} 
+		
+		
 		if (((SalidaDeMaquina) evento).esFinDeServicio()) {
 		    maquina.sacarAuto();
 		    if (!maquina.getCola().colaVacia()) {
@@ -154,14 +171,7 @@ public class Main {
 			Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
 				maquinaEncerado));
 		    }
-
-		    Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
-			    maquina));
-		    if (maquinaEncerado.estaVacia()) {
-			Main.timeline.newEvento(new SalidaDeCola(evento.getAuto(),
-				maquinaEncerado));
-		    }
-
+		    
 		}
 
 	    }
@@ -172,6 +182,7 @@ public class Main {
 
     private static void imprimirResultados() {
 	statsContainer.printCostoPorDiaYPorServicio();
+	statsContainer.printPromedioGeneralDeEspera();
 	
 	statsContainer.resetStats();
     }

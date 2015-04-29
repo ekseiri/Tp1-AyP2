@@ -7,11 +7,11 @@ package main;
 public class MaquinaEncerado extends Maquina {
 
     public MaquinaEncerado() {
-	// TODO Auto-generated constructor stub
     }
 
-    double getTiempoEnCola() {
-	return Main.timeline.getHorarioActual() - this.getAuto().getTicket().getHorario();
+    double getTiempoEnCola(){
+	//implementar
+	return -1;
     }
 
 }

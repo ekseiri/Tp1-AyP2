@@ -2,7 +2,7 @@ package main;
 
 public class Stats {
     private int[] cantidadServicios = new int[4];
-    private int[] acumuladorTiempoEnCola = new int[2];
+    private double[] acumuladorTiempoEnCola = new double[2];
 
     /**
      * Crea el contenedor de estadisticas, inicializando la cantidad de
@@ -62,14 +62,14 @@ public class Stats {
      * @param tipoDeServicio
      *            TipoDeServicio requerido
      */
-    public void addTiempoEnCola(TipoDeServicio tipoDeServicio) {
+    public void addTiempoEnCola(TipoDeServicio tipoDeServicio, double tiempo) {
 	if ((tipoDeServicio == TipoDeServicio.ECONOMICO)
 		|| (tipoDeServicio == TipoDeServicio.COMPLETO)
 		|| (tipoDeServicio == TipoDeServicio.PREMIUM))
-	    this.acumuladorTiempoEnCola[0]++;
+	    this.acumuladorTiempoEnCola[0] += tiempo;
 
 	if (tipoDeServicio == TipoDeServicio.ENCERADO)
-	    this.acumuladorTiempoEnCola[1]++;
+	    this.acumuladorTiempoEnCola[1] += tiempo;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Stats {
      *            TipoDeServicio requerido
      * @return -1 Si el TipoDeServicio es inexistente
      */
-    public int getTiempoEnCola(TipoDeServicio tipoDeServicio) {
+    public double getTiempoEnCola(TipoDeServicio tipoDeServicio) {
 	if ((tipoDeServicio == TipoDeServicio.ECONOMICO)
 		|| (tipoDeServicio == TipoDeServicio.COMPLETO)
 		|| (tipoDeServicio == TipoDeServicio.PREMIUM))
@@ -97,24 +97,23 @@ public class Stats {
      * @param tipoDeServicio
      *            TipoDeServicio requerido
      */
-    
-    /*public void resetTiempoEnCola(TipoDeServicio tipoDeServicio) {
-	if ((tipoDeServicio == TipoDeServicio.ECONOMICO)
-		|| (tipoDeServicio == TipoDeServicio.COMPLETO)
-		|| (tipoDeServicio == TipoDeServicio.PREMIUM))
-	    this.acumuladorTiempoEnCola[0] = 0;
 
-	if (tipoDeServicio == TipoDeServicio.ENCERADO)
-	    this.acumuladorTiempoEnCola[1] = 0;
-    }
-    */
-    public void resetStats(){
-	this.cantidadServicios[0]=0;
-	this.cantidadServicios[1]=0;
-	this.cantidadServicios[2]=0;
-	this.cantidadServicios[3]=0;
-	this.acumuladorTiempoEnCola[0]=0;
-	this.acumuladorTiempoEnCola[1]=0;
+    /*
+     * public void resetTiempoEnCola(TipoDeServicio tipoDeServicio) { if
+     * ((tipoDeServicio == TipoDeServicio.ECONOMICO) || (tipoDeServicio ==
+     * TipoDeServicio.COMPLETO) || (tipoDeServicio == TipoDeServicio.PREMIUM))
+     * this.acumuladorTiempoEnCola[0] = 0;
+     * 
+     * if (tipoDeServicio == TipoDeServicio.ENCERADO)
+     * this.acumuladorTiempoEnCola[1] = 0; }
+     */
+    public void resetStats() {
+	this.cantidadServicios[0] = 0;
+	this.cantidadServicios[1] = 0;
+	this.cantidadServicios[2] = 0;
+	this.cantidadServicios[3] = 0;
+	this.acumuladorTiempoEnCola[0] = 0;
+	this.acumuladorTiempoEnCola[1] = 0;
     }
 
     public void printCostoPorDiaYPorServicio() {
@@ -140,4 +139,30 @@ public class Stats {
 	System.out.println();
     }
 
+    public void printPromedioGeneralDeEspera() {
+	double promEconomicos = getTiempoEnCola(TipoDeServicio.ECONOMICO)
+		/ getServicios(TipoDeServicio.ECONOMICO);
+	double promCompletos = getTiempoEnCola(TipoDeServicio.COMPLETO)
+		/ getServicios(TipoDeServicio.COMPLETO);
+	double promPremiums = getTiempoEnCola(TipoDeServicio.PREMIUM)
+		/ getServicios(TipoDeServicio.PREMIUM);
+	double promEncerados = getTiempoEnCola(TipoDeServicio.ENCERADO)
+		/ getServicios(TipoDeServicio.ENCERADO);
+	double promGeneral = (getTiempoEnCola(TipoDeServicio.ECONOMICO)
+		+ getTiempoEnCola(TipoDeServicio.COMPLETO)
+		+ getTiempoEnCola(TipoDeServicio.PREMIUM))
+		/ (getServicios(TipoDeServicio.ECONOMICO)
+		+ getServicios(TipoDeServicio.COMPLETO)
+		+ getServicios(TipoDeServicio.PREMIUM));
+
+	System.out.println("Promedio General de Espera por Total de Servicios: " + promGeneral);
+	System.out.println();
+	System.out.println("Promedio de Espera por Servicio:");
+	System.out.println("Económico: " + promEconomicos);
+	System.out.println("Completo: " + promCompletos);
+	System.out.println("Premium: " + promPremiums);
+	System.out.println("Encerado: " + promEncerados);
+	System.out.println();
+
+    }
 }

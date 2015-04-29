@@ -56,7 +56,7 @@ public abstract class Maquina {
      */
     public void encolarAuto(Auto auto) {
 	if (auto.getTicket().getTipoServicio() == TipoDeServicio.ECONOMICO) {
-
+	    //falta implementar
 	}
 	try {
 	    this.cola.encolar(auto);
