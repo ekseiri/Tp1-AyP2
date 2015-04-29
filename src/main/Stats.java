@@ -162,7 +162,7 @@ public class Stats {
 
 	System.out.println("Costo por Servicio:");
 	System.out.println();
-	System.out.println("Económico: "
+	System.out.println("Economico: "
 		+ String.format("$%.2f", costoEconomicos));
 	System.out.println("Completo: "
 		+ String.format("$%.2f", costoCompletos));
@@ -185,17 +185,17 @@ public class Stats {
 		/ getServicios(TipoDeServicio.PREMIUM);
 	double promEncerados = getTiempoEnCola(TipoDeServicio.ENCERADO)
 		/ getServicios(TipoDeServicio.ENCERADO);
+	
 	double promGeneral = (getTiempoEnCola(TipoDeServicio.ECONOMICO)
 		+ getTiempoEnCola(TipoDeServicio.COMPLETO) + getTiempoEnCola(TipoDeServicio.PREMIUM))
 		/ (getServicios(TipoDeServicio.ECONOMICO)
 			+ getServicios(TipoDeServicio.COMPLETO) + getServicios(TipoDeServicio.PREMIUM));
 
-	System.out
-		.println("Promedio General de Espera por Total de Servicios: "
+	System.out.println("Promedio General de Espera por Total de Servicios: "
 			+ String.format("%.2f", promGeneral) + " minutos");
 	System.out.println();
 	System.out.println("Promedio de Espera por Servicio:");
-	System.out.println("Económico: "
+	System.out.println("Economico: "
 		+ String.format("%.2f", promEconomicos) + " minutos");
 	System.out.println("Completo: " + String.format("%.2f", promCompletos)
 		+ " minutos");
