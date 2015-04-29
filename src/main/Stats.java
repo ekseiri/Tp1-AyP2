@@ -130,8 +130,8 @@ public class Stats {
     public void addLongitudDeCola(Maquina maquina) {
 
 	if (maquina.getClass() == MaquinaLavado.class) {
-	    this.longitudDeCola[0] = maquina.getAutosEnCola()
-		    * this.tiempoLongitudDeCola[0];
+	    this.longitudDeCola[0] += maquina.getAutosEnCola()
+		    * (Main.timeline.getHorarioActual() - this.tiempoLongitudDeCola[0]);
 	    this.tiempoLongitudDeCola[0] = Main.timeline.getHorarioActual(); // va
 									     // despues
 									     // porque
@@ -142,8 +142,8 @@ public class Stats {
 									     // anterior
 	}
 	if (maquina.getClass() == MaquinaEncerado.class) {
-	    this.longitudDeCola[1] = maquina.getAutosEnCola()
-		    * this.tiempoLongitudDeCola[1];
+	    this.longitudDeCola[1] += maquina.getAutosEnCola()
+		    * (Main.timeline.getHorarioActual() - this.tiempoLongitudDeCola[1]);
 	    this.tiempoLongitudDeCola[0] = Main.timeline.getHorarioActual();
 	}
 
@@ -195,14 +195,17 @@ public class Stats {
 
 	System.out
 		.println("Promedio General de Espera por Total de Servicios: "
-			+ String.format("%.2f",promGeneral) + " minutos");
+			+ String.format("%.2f", promGeneral) + " minutos");
 	System.out.println();
 	System.out.println("Promedio de Espera por Servicio:");
 	System.out.println("Económico: "
 		+ String.format("%.2f", promEconomicos) + " minutos");
-	System.out.println("Completo: " + String.format("%.2f", promCompletos) + " minutos");
-	System.out.println("Premium: " + String.format("%.2f", promPremiums) + " minutos");
-	System.out.println("Encerado: " + String.format("%.2f", promEncerados) + " minutos");
+	System.out.println("Completo: " + String.format("%.2f", promCompletos)
+		+ " minutos");
+	System.out.println("Premium: " + String.format("%.2f", promPremiums)
+		+ " minutos");
+	System.out.println("Encerado: " + String.format("%.2f", promEncerados)
+		+ " minutos");
 	System.out.println();
 
     }
@@ -213,10 +216,12 @@ public class Stats {
 	System.out.println();
 	System.out.println("Lavado: "
 		+ String.format("%.2f",
-			(this.longitudDeCola[0] / this.tiempoTrabajado)) + " autos");
+			(this.longitudDeCola[0] / this.tiempoTrabajado))
+		+ " autos");
 	System.out.println("Encerado: "
 		+ String.format("%.2f",
-			(this.longitudDeCola[1] / this.tiempoTrabajado)) + " autos");
+			(this.longitudDeCola[1] / this.tiempoTrabajado))
+		+ " autos");
 	System.out.println();
     }
 }
