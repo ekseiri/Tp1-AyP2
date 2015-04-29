@@ -13,19 +13,7 @@ public class Stats {
      */
     public Stats() {
 
-	for (int i = 0; i < this.cantidadServicios.length; i++)
-	    this.cantidadServicios[i] = 0;
-
-	for (int i = 0; i < this.acumuladorTiempoEnCola.length; i++)
-	    this.acumuladorTiempoEnCola[i] = 0;
-
-	for (int i = 0; i < this.longitudDeCola.length; i++)
-	    this.longitudDeCola[i] = 0;
-
-	for (int i = 0; i < this.tiempoLongitudDeCola.length; i++)
-	    this.tiempoLongitudDeCola[i] = 0;
-
-	tiempoTrabajado = 0;
+	resetStats();
 
     }
 
@@ -119,12 +107,19 @@ public class Stats {
      * this.acumuladorTiempoEnCola[1] = 0; }
      */
     public void resetStats() {
-	this.cantidadServicios[0] = 0;
-	this.cantidadServicios[1] = 0;
-	this.cantidadServicios[2] = 0;
-	this.cantidadServicios[3] = 0;
-	this.acumuladorTiempoEnCola[0] = 0;
-	this.acumuladorTiempoEnCola[1] = 0;
+	for (int i = 0; i < this.cantidadServicios.length; i++)
+	    this.cantidadServicios[i] = 0;
+
+	for (int i = 0; i < this.acumuladorTiempoEnCola.length; i++)
+	    this.acumuladorTiempoEnCola[i] = 0;
+
+	for (int i = 0; i < this.longitudDeCola.length; i++)
+	    this.longitudDeCola[i] = 0;
+
+	for (int i = 0; i < this.tiempoLongitudDeCola.length; i++)
+	    this.tiempoLongitudDeCola[i] = 0;
+
+	tiempoTrabajado = 0;
     }
 
     public void addLongitudDeCola(Maquina maquina) {
@@ -212,6 +207,7 @@ public class Stats {
 
     public void printLongitudPromedioColas() {
 
+	if (this.tiempoTrabajado < Main.horarioAtencion){this.tiempoTrabajado=Main.horarioAtencion;}
 	System.out.println("Longitud Promedio de las Colas:");
 	System.out.println();
 	System.out.println("Lavado: "
