@@ -167,7 +167,7 @@ public class Main {
 	    }
 	} while (! timeline.finDelDia());
 	
-	
+	timeline.reset();
     }
 
     private static void imprimirResultados() {

@@ -59,4 +59,8 @@ public class Timeline {
     public boolean finDelDia(){
 	return (timeline.isEmpty() && (this.horarioActual >= Main.horarioAtencion));
     }
+
+    public void reset() {
+	this.horarioActual=0;
+    }
 }

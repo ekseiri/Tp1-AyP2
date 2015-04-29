@@ -57,10 +57,10 @@ public class Stats {
      */
     public void addTiempoEnCola(TipoDeServicio tipoDeServicio){
 	if ((tipoDeServicio == TipoDeServicio.ECONOMICO) || (tipoDeServicio == TipoDeServicio.COMPLETO)
-		 || (tipoDeServicio == TipoDeServicio.PREMIUM)  || (tipoDeServicio == TipoDeServicio.ENCERADO))
+		 || (tipoDeServicio == TipoDeServicio.PREMIUM))
 	    this.acumuladorTiempoEnCola[0]++;
 	
-	if (tipoDeServicio == TipoDeServicio.ECONOMICO)
+	if (tipoDeServicio == TipoDeServicio.ENCERADO)
 	    this.acumuladorTiempoEnCola[1]++;
     }
     
@@ -71,10 +71,10 @@ public class Stats {
      */
     public int getTiempoEnCola(TipoDeServicio tipoDeServicio){
 	if ((tipoDeServicio == TipoDeServicio.ECONOMICO) || (tipoDeServicio == TipoDeServicio.COMPLETO)
-		 || (tipoDeServicio == TipoDeServicio.PREMIUM)  || (tipoDeServicio == TipoDeServicio.ENCERADO))
+		 || (tipoDeServicio == TipoDeServicio.PREMIUM))
 	    return this.acumuladorTiempoEnCola[0];
 	
-	if (tipoDeServicio == TipoDeServicio.ECONOMICO)
+	if (tipoDeServicio == TipoDeServicio.ENCERADO)
 	    return this.acumuladorTiempoEnCola[1];
 	
 	return -1;
@@ -86,10 +86,10 @@ public class Stats {
      */
     public void resetTiempoEnCola(TipoDeServicio tipoDeServicio){
 	if ((tipoDeServicio == TipoDeServicio.ECONOMICO) || (tipoDeServicio == TipoDeServicio.COMPLETO)
-		 || (tipoDeServicio == TipoDeServicio.PREMIUM)  || (tipoDeServicio == TipoDeServicio.ENCERADO))
+		 || (tipoDeServicio == TipoDeServicio.PREMIUM))
 	    this.acumuladorTiempoEnCola[0] = 0;
 	
-	if (tipoDeServicio == TipoDeServicio.ECONOMICO)
+	if (tipoDeServicio == TipoDeServicio.ENCERADO)
 	    this.acumuladorTiempoEnCola[1] = 0;
     }
     
