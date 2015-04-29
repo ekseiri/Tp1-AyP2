@@ -117,6 +117,7 @@ public class Main {
 		*/
 		
 		statsContainer.addServicio(evento.getAuto().getTicket().getTipoServicio());
+		if (evento.getAuto().getTicket().getEncerado()){statsContainer.addServicio(TipoDeServicio.ENCERADO);}
 		
 		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.ECONOMICO){statsContainer.addServicio(TipoDeServicio.ECONOMICO);}
 		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.COMPLETO){statsContainer.addServicio(TipoDeServicio.COMPLETO);}

@@ -21,7 +21,7 @@ public class Stats {
 
 	for (int i = 0; i < this.longitudDeCola.length; i++)
 	    this.longitudDeCola[i] = 0;
-	
+
 	for (int i = 0; i < this.tiempoLongitudDeCola.length; i++)
 	    this.tiempoLongitudDeCola[i] = 0;
 
@@ -130,12 +130,21 @@ public class Stats {
     public void addLongitudDeCola(Maquina maquina) {
 
 	if (maquina.getClass() == MaquinaLavado.class) {
-	    this.longitudDeCola[0] = maquina.getAutosEnCola() * this.tiempoLongitudDeCola[0];
-	    this.tiempoLongitudDeCola[0]=Main.timeline.getHorarioActual(); //va despues porque lo calcula con el anterior
+	    this.longitudDeCola[0] = maquina.getAutosEnCola()
+		    * this.tiempoLongitudDeCola[0];
+	    this.tiempoLongitudDeCola[0] = Main.timeline.getHorarioActual(); // va
+									     // despues
+									     // porque
+									     // lo
+									     // calcula
+									     // con
+									     // el
+									     // anterior
 	}
 	if (maquina.getClass() == MaquinaEncerado.class) {
-	    this.longitudDeCola[1] = maquina.getAutosEnCola() * this.tiempoLongitudDeCola[1];
-	    this.tiempoLongitudDeCola[0]=Main.timeline.getHorarioActual();
+	    this.longitudDeCola[1] = maquina.getAutosEnCola()
+		    * this.tiempoLongitudDeCola[1];
+	    this.tiempoLongitudDeCola[0] = Main.timeline.getHorarioActual();
 	}
 
     }
@@ -156,14 +165,17 @@ public class Stats {
 
 	System.out.println("Costo por Servicio:");
 	System.out.println();
-	System.out.println("Económico: " + costoEconomicos);
-	System.out.println("Completo: " + costoCompletos);
-	System.out.println("Premium: " + costoPremiums);
-	System.out.println("Encerado: " + costoEncerados);
+	System.out.println("Económico: "
+		+ String.format("$%.2f", costoEconomicos));
+	System.out.println("Completo: "
+		+ String.format("$%.2f", costoCompletos));
+	System.out.println("Premium: " + String.format("$%.2f", costoPremiums));
+	System.out.println("Encerado: "
+		+ String.format("$%.2f", costoEncerados));
 	System.out.println();
-	System.out
-		.println("Costo Total: "
-			+ (costoEconomicos + costoCompletos + costoPremiums + costoEncerados));
+	System.out.println("Costo Total: "
+		+ String.format("$%.2f", (costoEconomicos + costoCompletos
+			+ costoPremiums + costoEncerados)));
 	System.out.println();
     }
 
@@ -183,25 +195,28 @@ public class Stats {
 
 	System.out
 		.println("Promedio General de Espera por Total de Servicios: "
-			+ promGeneral);
+			+ String.format("%.2f",promGeneral) + " minutos");
 	System.out.println();
 	System.out.println("Promedio de Espera por Servicio:");
-	System.out.println("Económico: " + promEconomicos);
-	System.out.println("Completo: " + promCompletos);
-	System.out.println("Premium: " + promPremiums);
-	System.out.println("Encerado: " + promEncerados);
+	System.out.println("Económico: "
+		+ String.format("%.2f", promEconomicos) + " minutos");
+	System.out.println("Completo: " + String.format("%.2f", promCompletos) + " minutos");
+	System.out.println("Premium: " + String.format("%.2f", promPremiums) + " minutos");
+	System.out.println("Encerado: " + String.format("%.2f", promEncerados) + " minutos");
 	System.out.println();
 
     }
 
     public void printLongitudPromedioColas() {
 
-	System.out.println("Longitud Promedio Cola de Lavado:");
+	System.out.println("Longitud Promedio de las Colas:");
 	System.out.println();
 	System.out.println("Lavado: "
-		+ (this.longitudDeCola[0] / this.tiempoTrabajado));
+		+ String.format("%.2f",
+			(this.longitudDeCola[0] / this.tiempoTrabajado)) + " autos");
 	System.out.println("Encerado: "
-		+ (this.longitudDeCola[1] / this.tiempoTrabajado));
+		+ String.format("%.2f",
+			(this.longitudDeCola[1] / this.tiempoTrabajado)) + " autos");
 	System.out.println();
     }
 }
