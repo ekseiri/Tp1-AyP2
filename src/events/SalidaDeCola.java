@@ -27,7 +27,8 @@ public class SalidaDeCola extends Evento {
 
     public double getTiempoEnCola() {
 	// Tiempo en Cola = (Horario Actual) - (Horario De Entrada)
-	return Main.timeline.getHorarioActual() - this.horario;
+	//return Main.timeline.getHorarioActual() - this.horario;
+	return Main.timeline.getHorarioActual() - this.getAuto().getTicket().getHorario();
     }
 
 }

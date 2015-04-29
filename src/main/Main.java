@@ -171,7 +171,9 @@ public class Main {
     }
 
     private static void imprimirResultados() {
-	System.out.println();
+	statsContainer.printCostoPorDiaYPorServicio();
+	
+	statsContainer.resetStats();
     }
     
 }

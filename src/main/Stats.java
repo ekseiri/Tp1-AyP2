@@ -97,7 +97,8 @@ public class Stats {
      * @param tipoDeServicio
      *            TipoDeServicio requerido
      */
-    public void resetTiempoEnCola(TipoDeServicio tipoDeServicio) {
+    
+    /*public void resetTiempoEnCola(TipoDeServicio tipoDeServicio) {
 	if ((tipoDeServicio == TipoDeServicio.ECONOMICO)
 		|| (tipoDeServicio == TipoDeServicio.COMPLETO)
 		|| (tipoDeServicio == TipoDeServicio.PREMIUM))
@@ -105,6 +106,15 @@ public class Stats {
 
 	if (tipoDeServicio == TipoDeServicio.ENCERADO)
 	    this.acumuladorTiempoEnCola[1] = 0;
+    }
+    */
+    public void resetStats(){
+	this.cantidadServicios[0]=0;
+	this.cantidadServicios[1]=0;
+	this.cantidadServicios[2]=0;
+	this.cantidadServicios[3]=0;
+	this.acumuladorTiempoEnCola[0]=0;
+	this.acumuladorTiempoEnCola[1]=0;
     }
 
     public void printCostoPorDiaYPorServicio() {

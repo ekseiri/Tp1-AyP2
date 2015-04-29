@@ -82,5 +82,7 @@ public abstract class Maquina {
     public Cola getCola() {
 	return this.cola;
     }
+    
+    abstract double getTiempoEnCola();
 
 }

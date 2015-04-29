@@ -10,4 +10,8 @@ public class MaquinaEncerado extends Maquina {
 	// TODO Auto-generated constructor stub
     }
 
+    double getTiempoEnCola() {
+	return Main.timeline.getHorarioActual() - this.getAuto().getTicket().getHorario();
+    }
+
 }
