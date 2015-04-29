@@ -9,7 +9,6 @@ import utils.Comparador;
 /**
  * Clase utilizada para mantener registro del tiempo transcurrido, guarda los 
  * eventos ocurridos
- *
  */
 public class Timeline {
     private PriorityQueue<Evento> timeline;
@@ -22,7 +21,6 @@ public class Timeline {
     public Timeline() {
 	this.horarioActual = 0;
 	this.timeline = new PriorityQueue<Evento>(comparador);
-	
     }
     
     /**
@@ -59,7 +57,10 @@ public class Timeline {
     public boolean finDelDia(){
 	return (timeline.isEmpty() && (this.horarioActual >= Main.horarioAtencion));
     }
-
+    
+    /**
+     * Vuelve a 0 el horario
+     */
     public void reset() {
 	this.horarioActual=0;
     }

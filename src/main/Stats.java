@@ -1,5 +1,9 @@
 package main;
 
+/**
+ * Clase que contiene los datos y metodos necesarios para el calculo de
+ * estadisticas
+ */
 public class Stats {
     private int[] cantidadServicios = new int[4];
     private double[] longitudDeCola = new double[2];
@@ -12,9 +16,7 @@ public class Stats {
      * servicios y el acumulador de tiempo para cada cola en 0
      */
     public Stats() {
-
 	resetStats();
-
     }
 
     /**
@@ -93,20 +95,7 @@ public class Stats {
     }
 
     /**
-     * Setea en 0 el tiempo de espera para la cola indicada
-     * 
-     * @param tipoDeServicio
-     *            TipoDeServicio requerido
-     */
-
-    /*
-     * public void resetTiempoEnCola(TipoDeServicio tipoDeServicio) { if
-     * ((tipoDeServicio == TipoDeServicio.ECONOMICO) || (tipoDeServicio ==
-     * TipoDeServicio.COMPLETO) || (tipoDeServicio == TipoDeServicio.PREMIUM))
-     * this.acumuladorTiempoEnCola[0] = 0;
-     * 
-     * if (tipoDeServicio == TipoDeServicio.ENCERADO)
-     * this.acumuladorTiempoEnCola[1] = 0; }
+     * Setea en 0 los acumuladores de estadisticas
      */
     public void resetStats() {
 	for (int i = 0; i < this.cantidadServicios.length; i++)
@@ -124,20 +113,18 @@ public class Stats {
 	tiempoTrabajado = 0;
     }
 
+    /**
+     * Guarda las longitudes de cola a lo largo del tiempo
+     * @param maquina
+     */
     public void addLongitudDeCola(Maquina maquina) {
 
 	if (maquina.getClass() == MaquinaLavado.class) {
 	    this.longitudDeCola[0] += maquina.getAutosEnCola()
 		    * (Main.timeline.getHorarioActual() - this.tiempoLongitudDeCola[0]);
-	    this.tiempoLongitudDeCola[0] = Main.timeline.getHorarioActual(); // va
-									     // despues
-									     // porque
-									     // lo
-									     // calcula
-									     // con
-									     // el
-									     // anterior
+	    this.tiempoLongitudDeCola[0] = Main.timeline.getHorarioActual();
 	}
+	
 	if (maquina.getClass() == MaquinaEncerado.class) {
 	    this.longitudDeCola[1] += maquina.getAutosEnCola()
 		    * (Main.timeline.getHorarioActual() - this.tiempoLongitudDeCola[1]);
@@ -145,11 +132,19 @@ public class Stats {
 	}
 
     }
-
+    
+    /**
+     * Cuenta el tiempo real trabajado, para compensar los servicios que deben 
+     * terminarse despues de la hora de cierre
+     * @param tiempoTrabajado
+     */
     public void setTiempoTrabajado(double tiempoTrabajado) {
 	this.tiempoTrabajado = tiempoTrabajado;
     }
 
+    /**
+     * Calcula e imprime el costo total incurrido por cada tipo de servicio
+     */
     public void printCostoPorDiaYPorServicio() {
 	double costoEconomicos = getServicios(TipoDeServicio.ECONOMICO)
 		* Main.economico.getCosto();
@@ -175,7 +170,10 @@ public class Stats {
 			+ costoPremiums + costoEncerados)));
 	System.out.println();
     }
-
+    
+    /**
+     * Calcula e imprime los tiempos de espera promedio
+     */
     public void printPromedioGeneralDeEspera() {
 	double promEconomicos = getTiempoEnCola(TipoDeServicio.ECONOMICO)
 		/ getServicios(TipoDeServicio.ECONOMICO);
@@ -206,7 +204,10 @@ public class Stats {
 	System.out.println();
 
     }
-
+    
+    /**
+     * Imprime la longitud promedio para cada cola
+     */
     public void printLongitudPromedioColas() {
 
 	if (this.tiempoTrabajado < Main.horarioAtencion){this.tiempoTrabajado=Main.horarioAtencion;}

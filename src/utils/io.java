@@ -5,14 +5,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
+/**
+ * Clase auxiliar para manipulación de I/O
+ * @author ekseiri
+ *
+ */
 public class io {
 
     /**
      * Devuelve Los valores asociados al proceso/dia indicado
      * 
-     * @param busqueda
-     *            (String) El dato a buscar correspondiente a la primera columna
-     *            de las tablas
+     * @param busqueda (String) El dato a buscar correspondiente a la primera 
+     * columna de las tablas
      * @return Devuelve un Array de Integers de 2 posiciones conteniendo los
      *         valores correspondientes a la columna 2 y 3 para el valor buscado
      */

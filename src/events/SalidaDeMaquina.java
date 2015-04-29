@@ -7,6 +7,9 @@ import main.MaquinaEncerado;
 import main.MaquinaLavado;
 import main.TipoDeServicio;
 
+/**
+ * Evento que se produce al salir un auto de una maquina 
+ */
 public class SalidaDeMaquina extends Evento {
     private Maquina maquina;
     private double horario;
@@ -56,15 +59,24 @@ public class SalidaDeMaquina extends Evento {
 
     }
 
+    /**
+     * Devuelve la maquina relacionada al evento
+     */
     public Maquina getMaquina() {
 	return this.maquina;
-
     }
-
+    
+    /**
+     * Devuelve el horario en el cual se produjo el evento
+     */
     public double getHorario() {
 	return this.horario;
     }
-
+    
+    /**
+     * Devuelve si este evento significa que se terminó de dar servicio al auto
+     * relacionado
+     */
     public boolean esFinDeServicio() {
 	return this.finDelServicio;
     }
