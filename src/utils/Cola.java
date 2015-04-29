@@ -57,5 +57,9 @@ public class Cola {
 	return (datos.remove(0));
 
     }
+    
+    public int getCantidadEncolados(){
+	return this.datos.size();
+    }
 
 }

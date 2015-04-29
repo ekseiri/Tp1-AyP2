@@ -11,19 +11,24 @@ public class Main {
     public static Servicio premium;
     public static Servicio encerado;
     public static Timeline timeline  = new Timeline();
-    public static Stats statsContainer;
+    public static Stats statsContainer  = new Stats();
     public static final double horarioAtencion = 720;
 
     public static void main(String[] args) {
 	
 	generarServicios();
 	proceso("Lunes");
+	imprimirResultados("Lunes");
 	proceso("Martes");
+	imprimirResultados("Martes");
 	proceso("Miercoles");
+	imprimirResultados("Miercoles");
 	proceso("Jueves");
+	imprimirResultados("Jueves");
 	proceso("Viernes");
+	imprimirResultados("Viernes");
 	proceso("Sabado");
-	imprimirResultados();
+	imprimirResultados("Sabado");
 
     }
 
@@ -111,23 +116,23 @@ public class Main {
 		Main.timeline.newEvent(e);
 		*/
 		
-		
-		//la idea era poner solo esta linea pero nullponter
 		statsContainer.addServicio(evento.getAuto().getTicket().getTipoServicio());
 		
-		//hice estas 4 pero es igual, nullpointer
-		if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.ECONOMICO){statsContainer.addServicio(TipoDeServicio.ECONOMICO);}
-		if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.COMPLETO){statsContainer.addServicio(TipoDeServicio.COMPLETO);}
-		if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.PREMIUM){statsContainer.addServicio(TipoDeServicio.PREMIUM);}
-		if (evento.getAuto().getTicket().getEncerado()){statsContainer.addServicio(TipoDeServicio.ENCERADO);}
+		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.ECONOMICO){statsContainer.addServicio(TipoDeServicio.ECONOMICO);}
+		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.COMPLETO){statsContainer.addServicio(TipoDeServicio.COMPLETO);}
+		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.PREMIUM){statsContainer.addServicio(TipoDeServicio.PREMIUM);}
+		//if (evento.getAuto().getTicket().getEncerado()){statsContainer.addServicio(TipoDeServicio.ENCERADO);}
 		
 		if (timeline.getHorarioActual() <= Main.horarioAtencion) {
 		    Main.timeline.newEvento(new LlegadaAuto(new Auto(new Ticket(
 			Main.timeline.getHorarioActual() + poisson.proximoArribo()))));
 		}
 		
+		statsContainer.addLongitudDeCola(maquinaLavado);
+		
 		// post : encola el auto y sabemos cuando el prÃ³ximo arribo.
 		maquinaLavado.encolarAuto(evento.getAuto());
+		
 
 		// Si la maquina de lavado se encuentra vacia, se ingresa el
 		// auto
@@ -139,7 +144,7 @@ public class Main {
 
 	    } else if (evento.getClass() == SalidaDeCola.class) {
 		maquina = ((SalidaDeCola) evento).getMaquina();
-
+		statsContainer.addLongitudDeCola(maquina);
 		try {
 		    maquina.nextAuto();
 		    
@@ -177,12 +182,16 @@ public class Main {
 	    }
 	} while (! timeline.finDelDia());
 	
+	statsContainer.setTiempoTrabajado(timeline.getHorarioActual());
 	timeline.reset();
     }
 
-    private static void imprimirResultados() {
+    private static void imprimirResultados(String dia) {
+	System.out.println("Resultados para el día "+ dia + ":");
+	System.out.println();
 	statsContainer.printCostoPorDiaYPorServicio();
 	statsContainer.printPromedioGeneralDeEspera();
+	statsContainer.printLongitudPromedioColas();
 	
 	statsContainer.resetStats();
     }

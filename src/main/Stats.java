@@ -2,7 +2,10 @@ package main;
 
 public class Stats {
     private int[] cantidadServicios = new int[4];
+    private double[] longitudDeCola = new double[2];
+    private double[] tiempoLongitudDeCola = new double[2];
     private double[] acumuladorTiempoEnCola = new double[2];
+    private double tiempoTrabajado;
 
     /**
      * Crea el contenedor de estadisticas, inicializando la cantidad de
@@ -13,8 +16,16 @@ public class Stats {
 	for (int i = 0; i < this.cantidadServicios.length; i++)
 	    this.cantidadServicios[i] = 0;
 
-	for (int i = 0; i < this.cantidadServicios.length; i++)
+	for (int i = 0; i < this.acumuladorTiempoEnCola.length; i++)
 	    this.acumuladorTiempoEnCola[i] = 0;
+
+	for (int i = 0; i < this.longitudDeCola.length; i++)
+	    this.longitudDeCola[i] = 0;
+	
+	for (int i = 0; i < this.tiempoLongitudDeCola.length; i++)
+	    this.tiempoLongitudDeCola[i] = 0;
+
+	tiempoTrabajado = 0;
 
     }
 
@@ -116,6 +127,23 @@ public class Stats {
 	this.acumuladorTiempoEnCola[1] = 0;
     }
 
+    public void addLongitudDeCola(Maquina maquina) {
+
+	if (maquina.getClass() == MaquinaLavado.class) {
+	    this.longitudDeCola[0] = maquina.getAutosEnCola() * this.tiempoLongitudDeCola[0];
+	    this.tiempoLongitudDeCola[0]=Main.timeline.getHorarioActual(); //va despues porque lo calcula con el anterior
+	}
+	if (maquina.getClass() == MaquinaEncerado.class) {
+	    this.longitudDeCola[1] = maquina.getAutosEnCola() * this.tiempoLongitudDeCola[1];
+	    this.tiempoLongitudDeCola[0]=Main.timeline.getHorarioActual();
+	}
+
+    }
+
+    public void setTiempoTrabajado(double tiempoTrabajado) {
+	this.tiempoTrabajado = tiempoTrabajado;
+    }
+
     public void printCostoPorDiaYPorServicio() {
 	double costoEconomicos = getServicios(TipoDeServicio.ECONOMICO)
 		* Main.economico.getCosto();
@@ -149,13 +177,13 @@ public class Stats {
 	double promEncerados = getTiempoEnCola(TipoDeServicio.ENCERADO)
 		/ getServicios(TipoDeServicio.ENCERADO);
 	double promGeneral = (getTiempoEnCola(TipoDeServicio.ECONOMICO)
-		+ getTiempoEnCola(TipoDeServicio.COMPLETO)
-		+ getTiempoEnCola(TipoDeServicio.PREMIUM))
+		+ getTiempoEnCola(TipoDeServicio.COMPLETO) + getTiempoEnCola(TipoDeServicio.PREMIUM))
 		/ (getServicios(TipoDeServicio.ECONOMICO)
-		+ getServicios(TipoDeServicio.COMPLETO)
-		+ getServicios(TipoDeServicio.PREMIUM));
+			+ getServicios(TipoDeServicio.COMPLETO) + getServicios(TipoDeServicio.PREMIUM));
 
-	System.out.println("Promedio General de Espera por Total de Servicios: " + promGeneral);
+	System.out
+		.println("Promedio General de Espera por Total de Servicios: "
+			+ promGeneral);
 	System.out.println();
 	System.out.println("Promedio de Espera por Servicio:");
 	System.out.println("Económico: " + promEconomicos);
@@ -164,5 +192,16 @@ public class Stats {
 	System.out.println("Encerado: " + promEncerados);
 	System.out.println();
 
+    }
+
+    public void printLongitudPromedioColas() {
+
+	System.out.println("Longitud Promedio Cola de Lavado:");
+	System.out.println();
+	System.out.println("Lavado: "
+		+ (this.longitudDeCola[0] / this.tiempoTrabajado));
+	System.out.println("Encerado: "
+		+ (this.longitudDeCola[1] / this.tiempoTrabajado));
+	System.out.println();
     }
 }
