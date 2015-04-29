@@ -156,9 +156,12 @@ public class Main {
 	    } else if (evento.getClass() == SalidaDeMaquina.class) {
 		maquina = ((SalidaDeMaquina) evento).getMaquina();
 		
-		if (maquina.getClass()==MaquinaLavado.class){
+		if (maquina.getClass() == MaquinaLavado.class){
+		    ((MaquinaLavado) maquina).setHorarioUltimaSalida();
 		    statsContainer.addTiempoEnCola(maquina.getAuto().getTicket().getTipoServicio(),((MaquinaLavado)maquina).getTiempoEnCola());
-		} 
+		} else {
+		    statsContainer.addTiempoEnCola(maquina.getAuto().getTicket().getTipoServicio(),((MaquinaEncerado)maquina).getTiempoEnCola(maquinaLavado));
+		}
 		
 		
 		if (((SalidaDeMaquina) evento).esFinDeServicio()) {
@@ -188,7 +191,7 @@ public class Main {
     }
 
     private static void imprimirResultados(String dia) {
-	System.out.println("Resultados para el día "+ dia + ":");
+	System.out.println("Resultados para el dï¿½a "+ dia + ":");
 	System.out.println();
 	statsContainer.printCostoPorDiaYPorServicio();
 	statsContainer.printPromedioGeneralDeEspera();

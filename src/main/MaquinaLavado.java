@@ -6,11 +6,21 @@ package main;
  */
 public class MaquinaLavado extends Maquina {
 
+    private double horarioUltimaSalida = 0;
+    
     public MaquinaLavado() {
 	// TODO Auto-generated constructor stub
     }
     
-    double getTiempoEnCola() {
+    public double getTiempoEnCola() {
 	return Main.timeline.getHorarioActual() - this.getAuto().getTicket().getHorario();
+    }
+    
+    public void setHorarioUltimaSalida() {
+	this.horarioUltimaSalida = Main.timeline.getHorarioActual();
+    }
+    
+    public double getHorarioUltimaSalida() {
+	return this.horarioUltimaSalida;
     }
 }

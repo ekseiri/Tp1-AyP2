@@ -9,9 +9,8 @@ public class MaquinaEncerado extends Maquina {
     public MaquinaEncerado() {
     }
 
-    double getTiempoEnCola(){
-	//implementar
-	return -1;
+    double getTiempoEnCola(MaquinaLavado maquina) {
+	return Main.timeline.getHorarioActual() - maquina.getHorarioUltimaSalida();
     }
 
 }

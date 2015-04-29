@@ -83,8 +83,6 @@ public abstract class Maquina {
 	return this.cola;
     }
     
-    abstract double getTiempoEnCola();
-    
     public int getAutosEnCola(){
 	return this.cola.getCantidadEncolados();
 	
