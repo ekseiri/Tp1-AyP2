@@ -4,7 +4,7 @@ public class Stats {
     private int[] cantidadServicios = new int[4];
     private double[] longitudDeCola = new double[2];
     private double[] tiempoLongitudDeCola = new double[2];
-    private double[] acumuladorTiempoEnCola = new double[2];
+    private double[] acumuladorTiempoEnCola = new double[4];
     private double tiempoTrabajado;
 
     /**
@@ -62,13 +62,14 @@ public class Stats {
      *            TipoDeServicio requerido
      */
     public void addTiempoEnCola(TipoDeServicio tipoDeServicio, double tiempo) {
-	if ((tipoDeServicio == TipoDeServicio.ECONOMICO)
-		|| (tipoDeServicio == TipoDeServicio.COMPLETO)
-		|| (tipoDeServicio == TipoDeServicio.PREMIUM))
+	if (tipoDeServicio == TipoDeServicio.ECONOMICO)
 	    this.acumuladorTiempoEnCola[0] += tiempo;
-
-	if (tipoDeServicio == TipoDeServicio.ENCERADO)
+	if (tipoDeServicio == TipoDeServicio.COMPLETO)
 	    this.acumuladorTiempoEnCola[1] += tiempo;
+	if (tipoDeServicio == TipoDeServicio.PREMIUM)
+	    this.acumuladorTiempoEnCola[2] += tiempo;
+	if (tipoDeServicio == TipoDeServicio.ENCERADO)
+	    this.acumuladorTiempoEnCola[3] += tiempo;
     }
 
     /**
@@ -79,13 +80,14 @@ public class Stats {
      * @return -1 Si el TipoDeServicio es inexistente
      */
     public double getTiempoEnCola(TipoDeServicio tipoDeServicio) {
-	if ((tipoDeServicio == TipoDeServicio.ECONOMICO)
-		|| (tipoDeServicio == TipoDeServicio.COMPLETO)
-		|| (tipoDeServicio == TipoDeServicio.PREMIUM))
+	if (tipoDeServicio == TipoDeServicio.ECONOMICO)
 	    return this.acumuladorTiempoEnCola[0];
-
-	if (tipoDeServicio == TipoDeServicio.ENCERADO)
+	if (tipoDeServicio == TipoDeServicio.COMPLETO)
 	    return this.acumuladorTiempoEnCola[1];
+	if (tipoDeServicio == TipoDeServicio.PREMIUM)
+	    return this.acumuladorTiempoEnCola[2];
+	if (tipoDeServicio == TipoDeServicio.ENCERADO)
+	    return this.acumuladorTiempoEnCola[3];
 
 	return -1;
     }
