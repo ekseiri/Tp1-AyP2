@@ -107,22 +107,8 @@ public class Main {
 
 	    if (evento.getClass() == LlegadaAuto.class) {
 		
-		/*
-		double h = Main.timeline.getHorarioActual();
-		double p = poisson.proximoArribo();
-		Ticket ticket = new Ticket(h + p);
-		Auto auto = new Auto(ticket);
-		Evento e = new LlegadaAuto(auto);
-		Main.timeline.newEvent(e);
-		*/
-		
 		statsContainer.addServicio(evento.getAuto().getTicket().getTipoServicio());
 		if (evento.getAuto().getTicket().getEncerado()){statsContainer.addServicio(TipoDeServicio.ENCERADO);}
-		
-		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.ECONOMICO){statsContainer.addServicio(TipoDeServicio.ECONOMICO);}
-		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.COMPLETO){statsContainer.addServicio(TipoDeServicio.COMPLETO);}
-		//if (evento.getAuto().getTicket().getTipoServicio()==TipoDeServicio.PREMIUM){statsContainer.addServicio(TipoDeServicio.PREMIUM);}
-		//if (evento.getAuto().getTicket().getEncerado()){statsContainer.addServicio(TipoDeServicio.ENCERADO);}
 		
 		if (timeline.getHorarioActual() <= Main.horarioAtencion) {
 		    Main.timeline.newEvento(new LlegadaAuto(new Auto(new Ticket(

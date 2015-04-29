@@ -86,7 +86,7 @@ public abstract class Maquina {
     /**
      * Devuelve la cantidad de autos actualmente en la cola de la Maquina
      */
-    public int getAutosEnCola(){
+    public int getAutosEnCola() {
 	return this.cola.getCantidadEncolados();
 	
     }
