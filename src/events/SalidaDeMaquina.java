@@ -52,7 +52,7 @@ public class SalidaDeMaquina extends Evento {
 
 	finDelServicio = (maquina.getClass() == MaquinaEncerado.class || !(this
 		.getAuto().getTicket().getEncerado())
-		&& maquina.getClass() == MaquinaEncerado.class);
+		&& maquina.getClass() == MaquinaLavado.class);
 
     }
 
